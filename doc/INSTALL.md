@@ -1,4 +1,4 @@
-HOW TO INSTALL NUORDS PROXY SERVER 
+HOW TO INSTALL NUORDS PROXY SERVER
 
 ----------------------------------
 MAC OS:

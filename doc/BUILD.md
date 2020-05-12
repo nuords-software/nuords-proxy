@@ -1,4 +1,4 @@
-HOW TO BUILD NUORDS PROXY SERVER 
+HOW TO BUILD NUORDS PROXY SERVER
 
 ----------------------------------
 Mac OS:
