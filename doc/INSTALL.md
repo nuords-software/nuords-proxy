@@ -10,17 +10,17 @@ Installation.
 
 2. Open Terminal app and run setup script: 
 
-sudo sh nrdproxy_mac_install
+   sudo sh nrdproxy_mac_install
 
 3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.template".
 
 4. Copy "nrdproxyd.cfg" to "/etc/nuords/" directory:
 
-sudo cp ./nrdproxyd.cfg /etc/nuords/nrdproxyd.cfg
+   sudo cp ./nrdproxyd.cfg /etc/nuords/nrdproxyd.cfg
 
 5. Start NuoRDS Proxy daemon: 
 
-sudo nrdproxyctl start -w
+   sudo nrdproxyctl start -w
 
 6. Check log messages in /var/log/nrdproxyd.log
 
@@ -29,7 +29,7 @@ Troubleshooting.
 
 1. Stop NuoRDS Proxy daemon daemon:
 
-sudo nrdproxyctl stop -w 
+   sudo nrdproxyctl stop -w 
 
 2. Launch proxy with verbose output: 
   
@@ -45,7 +45,7 @@ sudo nrdproxyctl stop -w
   
 5. After solving the problem, start proxy daemon:
 
-sudo nrdproxyctl start -w 
+   sudo nrdproxyctl start -w 
 
 ----------------------------------
 OTHER OS:
