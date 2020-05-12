@@ -91,8 +91,8 @@ BLD_DIR=../bld
 XTL_DIR=../com/xtllib
 INC_DIR=../com/include
 
-OBJ_DIR=$(BLD_DIR)/$(OS_SYS)/$(BLD_HOST)/$(OS_VER)$(ALT_ARCH)/$(PROD_NAME)/$(BLD_CFG)/obj
-BIN_DIR=$(BLD_DIR)/$(OS_SYS)/$(BLD_HOST)/$(OS_VER)$(ALT_ARCH)/$(PROD_NAME)/$(BLD_CFG)/bin
+OBJ_DIR=$(BLD_DIR)/$(OS_SYS)/$(BLD_HOST)/$(OS_VER)$(ALT_ARCH)/$(BLD_CFG)/obj
+BIN_DIR=$(BLD_DIR)/$(OS_SYS)/$(BLD_HOST)/$(OS_VER)$(ALT_ARCH)/$(BLD_CFG)/bin
 BIN_OUT=$(BIN_DIR)/$(BIN_NAME)
 
 #Linker objects and includes

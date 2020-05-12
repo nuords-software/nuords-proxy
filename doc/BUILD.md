@@ -8,26 +8,44 @@ Mac OS:
 3. Perform "make ship" command
 
 ----------------------------------
-Unix/Linux:
+Linux:
 
-1. GCC 4+ and dev. tools are required.   
-2. Go to "linux" directory, e.g "cd linux"
-3. Perform "make ship" command
+1. GCC 4+ and dev. tools are required.
+   
+2. Navigate into the "src/linux" directory.  
+
+cd "src/linux"
+
+3. Make the product with a shipping package
+
+make ship
+
+----------------------------------
+Unix:
+
+1. GCC 4+ and dev. tools are required.
+2. Navigate into the "src/unix" directory.  
+
+cd src/unix
+
+3. Make the product with a shipping package
+
+make ship
 
 ----------------------------------
 Windows:
 
 1. VisualStudio 11+ is required.
-2. Open win/nrdproxy.sln in MS VisualStudio.
-3. Select build configuration and platform.
-4. Build Solution.
+2. Open "src/win/nrdproxy.sln" in MS VisualStudio.
+3. Select a build configuration and a platform.
+4. Build the solution.
 
 ----------------------------------
 TEST:
 
-1. Navigate to shipping directory.
+1. Navigate into a shipping directory.
 
-2. Check daemon file functionality:
+2. Check the daemon executable functionality:
 
    chmod +x ./nrdproxyd    
    
