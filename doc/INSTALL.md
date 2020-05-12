@@ -33,15 +33,15 @@ Troubleshooting.
 
 2. Launch proxy with verbose output: 
   
-  /usr/local/bin/nrdproxyd -lc -lv
+   /usr/local/bin/nrdproxyd -lc -lv
   
 3. See additional options: 
 
-  /usr/local/bin/nrdproxyd -h
+   /usr/local/bin/nrdproxyd -h
 
 4. To change daemon startup rules, edit plist file: 
 
-  /Library/LaunchDaemons/com.nuords.nrdproxyd.plist
+   /Library/LaunchDaemons/com.nuords.nrdproxyd.plist
   
 5. After solving the problem, start proxy daemon:
 
