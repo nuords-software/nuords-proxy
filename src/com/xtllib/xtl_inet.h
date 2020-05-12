@@ -239,12 +239,7 @@ namespace xtl
         
         static socklen_t  get_addr_length(struct sockaddr* paddr)
         {
-            if(paddr->sa_family == AF_INET6){
-                return (socklen_t)sizeof(sockaddr_in6);
-            }else if(paddr->sa_family == AF_INET){
-                return (socklen_t)sizeof(sockaddr_in);
-            }
-            return 0;
+            return get_addr_length(paddr->sa_family);
         }
         
         static bool  set_addr_any(int family, struct sockaddr* paddr){
