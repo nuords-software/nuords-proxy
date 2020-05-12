@@ -32,7 +32,7 @@ An explicit IPv6 address:
 
   Examples:
 
-  [fec0::1]  
+  [fec0::1]   
   [fec0::1]:3389
 
 -----------------------------------------------------------
@@ -44,9 +44,9 @@ A hostname based address:
 
   Examples:
 
-  myhost.com 
-  myhost.com:3389
-  [myhost.com] 
-  [myhost.com]:3389
+  myhost.com   
+  myhost.com:3389   
+  [myhost.com]    
+  [myhost.com]:3389   
   
 -----------------------------------------------------------
