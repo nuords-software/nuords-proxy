@@ -1,6 +1,6 @@
 HOW TO INSTALL NUORDS PROXY SERVER 
 
-==================================
+----------------------------------
 MAC OS:
 
 ----------------------------------
@@ -47,7 +47,7 @@ sudo nrdproxyctl stop -w
 
 sudo nrdproxyctl start -w 
 
-==================================
+----------------------------------
 OTHER OS:
 
 IMPORTANT: Unfortunately we do not have installer scripts for other operating systems.
@@ -67,5 +67,5 @@ Installation.
 
 See "nrdproxyd -h" for all options you can use to meet your system requirements.
 
-==================================
+----------------------------------
 

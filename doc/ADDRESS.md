@@ -1,5 +1,5 @@
 NETWORK ADDRESS FORMAT
-===========================================================
+-----------------------------------------------------------
 
 NuoRDS Proxy supports both IPv4 and IPv6 connections.
 In order to avoid collisions please use format below.
@@ -49,4 +49,4 @@ A hostname based address:
   [myhost.com] 
   [myhost.com]:3389
   
-===========================================================
+-----------------------------------------------------------

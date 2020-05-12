@@ -1,8 +1,5 @@
 HOW TO BUILD NUORDS PROXY SERVER 
 
-==================================
-BUILD:
-
 ----------------------------------
 Mac OS:
 
@@ -25,7 +22,7 @@ Windows:
 3. Select build configuration and platform.
 4. Build Solution.
 
-==================================
+----------------------------------
 TEST:
 
 1. Navigate to shipping directory.
@@ -43,4 +40,4 @@ TEST:
 
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg
    
-==================================
+----------------------------------
