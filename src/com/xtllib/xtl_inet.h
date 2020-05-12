@@ -242,8 +242,8 @@ namespace xtl
             return get_addr_length(paddr->sa_family);
         }
         
-        static bool  set_addr_any(int family, struct sockaddr* paddr){
-            
+        static bool  set_addr_any(int family, struct sockaddr* paddr)
+        {     
             if(family == AF_INET6){
                 
                 ::memset(paddr, 0, sizeof(sockaddr_in6));
@@ -373,8 +373,8 @@ namespace xtl
             return result;
         }
         
-        static bool  is_same_host(const xtl::string& host1, const xtl::string& host2){
-            
+        static bool  is_same_host(const xtl::string& host1, const xtl::string& host2)
+        { 
             if(host1.empty() || host2.empty()) return false;
             
             addr_t addr1,addr2;
@@ -396,7 +396,6 @@ namespace xtl
       
         static bool  parse_cidr_notation(const xtl::string& src, cidr_t* pcidr)
         {
-            
             if(src.empty()) return false;
             
             //RFC4291 describes CIDR format as ipv6-address/prefix-length.
