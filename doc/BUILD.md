@@ -29,7 +29,8 @@ TEST:
 
 2. Check daemon file functionality:
 
-   chmod +x ./nrdproxyd
+   chmod +x ./nrdproxyd    
+   
    ./nrdproxyd -h
 
 3. Create nrdproxyd.cfg using nrdproxyd.cfg.simple or nrdproxyd.cfg.template.
