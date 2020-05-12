@@ -4,8 +4,14 @@ HOW TO BUILD NUORDS PROXY SERVER
 Mac OS:
 
 1. Xcode and dev. tools are required.
-2. Go to "mac" directory, e.g "cd mac"
-3. Perform "make ship" command
+
+2. Navigate into the "src/mac" directory.  
+
+   cd src/mac
+
+3. Make the product with a shipping package
+
+   make ship
 
 ----------------------------------
 Linux:
@@ -14,7 +20,7 @@ Linux:
    
 2. Navigate into the "src/linux" directory.  
 
-   cd "src/linux"
+   cd src/linux
 
 3. Make the product with a shipping package
 
@@ -24,6 +30,7 @@ Linux:
 Unix:
 
 1. GCC 4+ and dev. tools are required.
+
 2. Navigate into the "src/unix" directory.  
 
    cd src/unix
@@ -36,8 +43,11 @@ Unix:
 Windows:
 
 1. VisualStudio 11+ is required.
+
 2. Open "src/win/nrdproxy.sln" in MS VisualStudio.
+
 3. Select a build configuration and a platform.
+
 4. Build the solution.
 
 ----------------------------------
