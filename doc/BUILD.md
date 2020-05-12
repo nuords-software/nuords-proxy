@@ -14,11 +14,11 @@ Linux:
    
 2. Navigate into the "src/linux" directory.  
 
-cd "src/linux"
+   cd "src/linux"
 
 3. Make the product with a shipping package
 
-make ship
+   make ship
 
 ----------------------------------
 Unix:
@@ -26,11 +26,11 @@ Unix:
 1. GCC 4+ and dev. tools are required.
 2. Navigate into the "src/unix" directory.  
 
-cd src/unix
+   cd src/unix
 
 3. Make the product with a shipping package
 
-make ship
+   make ship
 
 ----------------------------------
 Windows:
