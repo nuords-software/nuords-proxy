@@ -1,0 +1,82 @@
+#!/bin/sh
+##
+# Installs NuoRDS Proxy Server 
+# Mac OS X 10.12+
+#
+##
+
+if [ $UID -ne 0 ] ; then
+   echo   "ERROR: You have not permissions to install NuoRDS Proxy Server."
+   echo   "Please use \"sudo\", e.g: sudo nrdproxy_mac_install"
+   exit 1
+fi
+
+if [ ! -f "./nrdproxyctl" ] || \
+   [ ! -f "./com.nuords.nrdproxyd.plist" ] || \
+   [ ! -f "./nrdproxyd.cfg.template" ] || \
+   [ ! -f "./nrdproxyd" ] ; then
+   echo   "fault: Source directory does not contain needed setup files."
+   exit 1
+fi
+
+perm_set_rwx()
+{
+  chmod u=rwx,g=rx,o=rx "$1"
+  chown root "$1" 
+  return $?
+}
+
+perm_set_rw()
+{
+  chmod u=rw,g=r,o=r "$1"
+  chown root "$1" 
+  return $?
+}
+
+echo   "Installing NuoRDS Proxy Server..."
+
+#Install binaries
+
+if [ ! -d "/usr/local/bin" ] ; then mkdir -p "/usr/local/bin" ; fi
+
+cp "./nrdproxyctl"  "/usr/local/bin/"
+cp "./nrdproxyd"  "/usr/local/bin/"
+
+if [ "$?" != "0" ] ; then
+   echo   "fault: Could not copy binaries."
+   exit 1
+fi 
+ 
+perm_set_rwx "/usr/local/bin/nrdproxyctl"
+perm_set_rwx "/usr/local/bin/nrdproxyd" 
+
+#Setup the daemon
+
+if [ ! -d "/Library/LaunchDaemons" ] ; then mkdir -p "/Library/LaunchDaemons" ; fi
+cp "./com.nuords.nrdproxyd.plist" "/Library/LaunchDaemons/"
+if [ "$?" != "0" ] ; then
+   echo   "fault: Could not configure daemon."
+   exit 1
+fi 
+perm_set_rw "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist"
+
+#Install config sample
+
+if [ ! -d "/etc/nuords" ] ; then mkdir -p "/etc/nuords" ; fi
+cp "./nrdproxyd.cfg.template" "/etc/nuords/"
+if [ "$?" != "0" ] ; then
+   echo   "fault: Could not copy configuration template."
+   exit 1
+fi 
+
+perm_set_rw "/etc/nuords/nrdproxyd.cfg.template"
+
+echo   "Done."
+
+if [ ! -f "/etc/nuords/nrdproxyd.cfg" ] ; then
+   #cp "/etc/nuords/nrdproxyd.cfg.template" "/etc/nuords/nrdproxyd.cfg"
+   echo "NOTE: Please create \"/etc/nuords/nrdproxyd.cfg\" before starting NuoRDS Proxy"
+   echo "Configuration file template: \"/etc/nuords/nrdproxyd.cfg.template\"" 
+fi
+
+exit 0

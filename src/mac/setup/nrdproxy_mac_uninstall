@@ -1,0 +1,23 @@
+#!/bin/sh
+##
+# Uninstalls NuoRDS Proxy Server 
+# Mac OS X 10.12+
+#
+##
+
+if [ $UID -ne 0 ] ; then
+   echo   "ERROR: You have not permissions to uninstall NuoRDS Proxy Server."
+   echo   "Please use \"sudo\", e.g: sudo nrdproxy_mac_uninstall"
+   exit 1
+fi
+
+echo   "Uninstalling NuoRDS Proxy Server..."
+
+rm -f "/usr/local/bin/nrdproxyctl" > /dev/null 2>&1
+rm -f "/usr/local/bin/nrdproxyd"  > /dev/null 2>&1
+rm -f "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist"  > /dev/null 2>&1  
+rm -f /etc/nuords/nrdproxyd.cfg.template  > /dev/null 2>&1
+rm -f /var/log/nrdproxyd.log  > /dev/null 2>&1  
+
+echo   "Done."
+exit 0

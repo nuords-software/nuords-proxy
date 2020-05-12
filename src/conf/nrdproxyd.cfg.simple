@@ -1,0 +1,49 @@
+# NuoRDS Proxy Server. 
+# 
+# Simple configuration example.
+# 
+# Lines, which begin with the hash character "#" or 
+# the semicolon ";" will be ignored.
+#
+# See "nrdproxyd.cfg.template" for more options.
+
+[proxy]
+
+listeners = 0.0.0.0:3389 [::]:3389
+
+[server.server01]
+
+#TODO: Replace SERVER_IP:PORT with the server address.
+
+address = SERVER_IP:PORT
+ 
+#TODO: Set a valid number of slots to enable the server.
+
+max_slots  = 0
+
+[server.server02]
+
+address = SERVER_IP:PORT
+max_slots  = 0
+
+[server.server03]
+
+address = SERVER_IP:PORT
+max_slots  = 0
+
+[server.server04]
+
+address = SERVER_IP:PORT
+max_slots  = 0
+
+[client.client01]
+
+#Allows any client IP
+sources = 0.0.0.0/0 ::/0
+max_slots = 1000
+
+[balancer.balancer01]
+
+clients = all
+servers = all
+metrics = cap cpu mem
