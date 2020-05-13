@@ -6,7 +6,7 @@ This document contains a web simple examples. For more options please see:
 
 **Two target servers with proxy on a third host**
 
-The proxy server listens for IPv4 and IPv6 connections. 'client01' allows any client address. 'balancer01' distributes incoming connections from all allowed clients (client01) among all available servers (server01, server02). 
+The proxy server listens for IPv4 and IPv6 connections. 'client01' allows connection from any client address. 'balancer01' distributes connections from all allowed clients (client01) among all available servers (server01, server02). The proxy server caches all routes with default timeout (60 sec).  
  
 ```
 [proxy]
@@ -72,12 +72,14 @@ servers = all
 
 **A non-caching IPv4 proxy with client filtering**
 
-The proxy server listens for IPv4 connections only. 'client01' allows only connections from 192.168.0.X subnet. 'client02' blocks the rest of IP addresses. 'balancer01' distributes incoming connections from 'client01' to 'server01' and 'server02'. The Balancing metrics include memory and CPU usage.
+The proxy server listens for IPv4 connections only. 'client01' allows only connections from 192.168.0.X subnet. 'client02' blocks the rest of IP addresses. 'balancer01' distributes incoming connections from 'client01' to 'server01' and 'server02'. The Balancing metrics include memory and CPU usage. The proxy server never caches any routes.
 
 ```
 [proxy]
 
 listeners = 0.0.0.0:3389
+
+cache_timeout = 0
 
 [server.server01]
 
