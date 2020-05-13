@@ -67,4 +67,7 @@
 5. Launch proxy in verbose console mode:
 
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg
+   
+-------------------------------
+[< NuoRDS Proxy](../README.md) 
 

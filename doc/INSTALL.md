@@ -65,3 +65,5 @@
 
 See "nrdproxyd -h" for all options you can use to meet your system requirements.
 
+-------------------------------
+[< NuoRDS Proxy](../README.md) 

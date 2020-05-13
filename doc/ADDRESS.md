@@ -46,5 +46,7 @@ host component must be enclosed into square brackets.
   myhost.com   
   myhost.com:3389   
   [myhost.com]    
-  [myhost.com]:3389   
-
+  [myhost.com]:3389
+  
+-------------------------------
+[< NuoRDS Proxy](../README.md) 
