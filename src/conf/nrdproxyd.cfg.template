@@ -80,7 +80,7 @@
 # Default: 1
 #
 # If none of target servers is NuoRDS, then 
-# disable the info protocol by setting "0".
+# disable the info protocol by setting '0'.
 
 ;info_enabled = 1
 
@@ -123,7 +123,7 @@
 # Format: Integer, 0|10+
 # Default: 60
 #
-# Set "0" to disable routing cache. 
+# Set '0' to disable routing cache. 
 
 ;cache_timeout = 60
 
@@ -191,7 +191,7 @@
 ################
 # A [server.NAME] section describes a target server.
 # Add a [server.NAME] section for each target server.
-# IMPORTANT: To avoid conflicts, do not use NAME "all".
+# IMPORTANT: To avoid conflicts, do not use NAME 'all'.
 
 [server.server01]
 
@@ -212,7 +212,7 @@ address = 172.16.0.2:3389
 # Default: 4073
 # 
 # The server info port is used only when info  
-# protocol is enabled and "check_mode" is 2 or 3.
+# protocol is enabled and 'check_mode' is 2 or 3.
 
 ;info_port = 4073
 
@@ -250,7 +250,7 @@ address = 172.16.0.2:3389
 # Format: Integer
 # Default: 100
 #
-# Set "0" to disable this server.
+# Set '0' to disable this server.
 
 ;max_slots = 100
 
@@ -279,7 +279,7 @@ address = 172.16.0.2:3389
 
 ################
 # A [client.NAME] section describes a client IP filter.
-# IMPORTANT: To avoid conflicts, do not use NAME "all".
+# IMPORTANT: To avoid conflicts, do not use NAME 'all'.
 
 [client.subnets]
 
@@ -300,7 +300,7 @@ sources = 192.168.0.0/16 10.0.0.0/8 172.16.0.0/12 fec0::0/16 fe80::/10
 # Format: Integer
 # Default: 1000
 #
-# Set "0" to disable this client group.
+# Set '0' to disable this client group.
 
 ;max_slots = 1000
 
@@ -367,6 +367,6 @@ servers = server01 server02
 # mem - server memory usage
 # cpu - server CPU usage
 #
-# "mem" and "cpu" metrics require "check_mode" 2 or 3.  
+# 'mem' and 'cpu' metrics require 'check_mode' 2 or 3.  
 
 ;metrics = cap mem cpu
