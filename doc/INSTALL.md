@@ -1,7 +1,6 @@
 **HOW TO INSTALL NUORDS PROXY**  [(?)](../README.md)
 
-
-**macOS Installation**
+**macOS Installation:**
 
 1. Unpack NuoRDS Proxy package into a directory.
 
@@ -25,8 +24,7 @@
 
 7. Check log messages in /var/log/nrdproxyd.log
 
-
-**macOS Troubleshooting**
+**macOS Troubleshooting:**
 
 1. Stop NuoRDS Proxy daemon daemon:
 
@@ -48,8 +46,7 @@
 
    sudo nrdproxyctl start -w 
 
-
-**Other OS Installation**
+**Other OS Installation:**
 
 *IMPORTANT*: Unfortunately we do not have installer scripts for other operating systems.
 

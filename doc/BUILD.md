@@ -1,7 +1,6 @@
 **HOW TO BUILD NUORDS PROXY** [(?)](../README.md)
 
-
-**macOS**
+**macOS:**
 
 1. Xcode and dev. tools are required.
 
@@ -13,8 +12,7 @@
 
    make ship
 
-
-**Linux**
+**Linux:**
 
 1. GCC 4+ and dev. tools are required.
    
@@ -26,8 +24,7 @@
 
    make ship
 
-
-**Unix**
+**Unix:**
 
 1. GCC 4+ and dev. tools are required.
 
@@ -39,8 +36,7 @@
 
    make ship
 
-
-**Windows**
+**Windows:**
 
 1. VisualStudio 11+ is required.
 
@@ -50,8 +46,7 @@
 
 4. Build the solution.
 
-
-**TESTING**
+**TESTING:**
 
 1. Navigate into a shipping directory.
 
