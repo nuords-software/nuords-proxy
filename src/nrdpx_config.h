@@ -71,9 +71,11 @@ class nrdpx_section_t
 class nrdpx_config_t
 {
     private:
+    
     typedef xtl::vector<nrdpx_section_t *> sections_t;
     sections_t   m_sects;
     xtl::string  m_class;
+
     void         add_item(nrdpx_section_t * sc,char * ln,size_t sz);
     void         add_sect(nrdpx_section_t * sc);
     
