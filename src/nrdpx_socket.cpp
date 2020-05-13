@@ -319,7 +319,7 @@ bool nrdpx_socket_get_send_buffer(NRD_SOCKET sock,int* psize)
     ===============================================================
     This is obviously a very confusung behavior. If we will return a
     doubled buffer, then nrdpx_socket_calc_buff may work incorrectly.
-    Moreover, any custom buffer size we decide to set set will be
+    Moreover, any custom buffer size we decide to configure will be
     doubled by a linux core. The only solution is to return a half.
     */
     
@@ -349,7 +349,7 @@ bool  nrdpx_socket_get_recv_buffer(NRD_SOCKET sock,int* psize)
     ===============================================================
     This is obviously a very confusung behavior. If we will return a
     doubled buffer, then nrdpx_socket_calc_buff may work incorrectly.
-    Moreover, any custom buffer size we decide to set set will be
+    Moreover, any custom buffer size we decide to configure will be
     doubled by a linux core. The only solution is to return a half.
     */
     
