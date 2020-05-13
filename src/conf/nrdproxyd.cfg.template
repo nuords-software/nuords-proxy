@@ -90,10 +90,8 @@
 # Format : Integer
 # Default: 4073
 #
-# If none of target servers is NuoRDS, then disable 
-# the NuoRDS info protocol by setting info_port = 0.
 # If you are running NuoRDS Server on the same host, 
-# you should change the info port to avoid conflicts.
+# you should change this info port to avoid conflicts.
 
 ;info_port = 4073
 
