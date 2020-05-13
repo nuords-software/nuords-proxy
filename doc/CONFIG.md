@@ -2,9 +2,9 @@
   
 This document describes advanced properties that you can use to tune the proxy server. Before proceeding with advanced tuning, we strongly recommedn that you test one of [simple configuration examples](CONFIG.md)  
   
-**General settings**  
+**General properties**  
   
-General proxy server properties should be located in the **\[proxy\]** section. This section is singular, you should not add any extensions.  
+General properties should be located in the **\[proxy\]** section. This section is singular, you should not add any extensions.  
   
 - The proxy listeners (IPv4|IPv6, TCP).  
   
@@ -227,3 +227,4 @@ A balancing unit properties should be placed in a **\[balancer.NAME\]** section.
   
 ------------------------------
 [< NuoRDS Proxy](README.md) 
+  
