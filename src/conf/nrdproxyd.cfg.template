@@ -212,7 +212,7 @@ address = 172.16.0.2:3389
 # Default: 4073
 # 
 # The server info port is used only when info  
-# protocol is enabled and check_mode is 2 or 3.
+# protocol is enabled and "check_mode" is 2 or 3.
 
 ;info_port = 4073
 
@@ -240,7 +240,7 @@ address = 172.16.0.2:3389
 # Default: 100
 #
 # Higher weight means higher probability
-# of receiving connections from a balancer. 
+# of receiving a connection. 
 
 ;max_weight = 100
 
@@ -278,7 +278,7 @@ address = 172.16.0.2:3389
 ;redundant = 0
 
 ################
-# A [client.NAME] section describes a client or a group.
+# A [client.NAME] section describes a client IP filter.
 # IMPORTANT: To avoid conflicts, do not use NAME "all".
 
 [client.subnets]
@@ -356,15 +356,17 @@ servers = server01 server02
  
 ;method = bybusyness
 
-# List of the balancer metrics.
+# List of the balancing metrics.
 #
 # Property: metrics
 # Format: See values
 # Default: cap
 #
 # Values:
-# cap - server capacity (maximum slots vs current slots) 
-# mem - server memory usage (check_mode 2+ is required) 
-# cpu - server CPU usage (check_mode 2+ is required)  
+# cap - server capacity
+# mem - server memory usage
+# cpu - server CPU usage
+#
+# "mem" and "cpu" metrics require "check_mode" 2 or 3.  
 
 ;metrics = cap mem cpu
