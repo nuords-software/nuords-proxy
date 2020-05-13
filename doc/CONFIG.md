@@ -1,6 +1,6 @@
 **NUORDS PROXY CONFIGURATION**  [(?)](README.md)  
   
-This document describes advanced properties that you can use to tune the proxy server. Before proceeding with advanced tuning, we strongly recommend that you test at least one of [simple configuration examples](EXAMPLES.md)  
+This document describes advanced properties that you can use to tune the proxy server. Before proceeding with advanced tuning, we strongly recommend that you test at least one of [simple configuration examples](EXAMPLES.md).  
   
 **General properties**  
   
