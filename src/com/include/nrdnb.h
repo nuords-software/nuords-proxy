@@ -120,7 +120,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
   Message     : NRDNBM_IAMHERE
   Description : The server is online
   Direction   : Server->Broadcast
-  Data type   : NRDNBT_INFO (NRDNBT_SERVER for old)
+  Data type   : NRDNBT_INFO
 */
 #define NRDNBM_IAMHERE    2
 
@@ -128,7 +128,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
   Message     : NRDNBM_IAMLOST
   Description : The server went down
   Direction   : Server->Broadcast
-  Data type   : NRDNBT_INFO (NRDNBT_SERVER for old)
+  Data type   : NRDNBT_INFO
 */
 #define NRDNBM_IAMLOST    3
 
