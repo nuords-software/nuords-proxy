@@ -1,4 +1,4 @@
-**NUORDS PROXY ADDRESS FORMAT** [(?)](../README.md)
+**NUORDS PROXY ADDRESS FORMAT** [(?)](README.md)
 
 NuoRDS Proxy supports both IPv4 and IPv6 connections.
 In order to avoid collisions please use format below.
@@ -45,4 +45,4 @@ host component must be enclosed into square brackets.
   [myhost.com]:3389
   
 -------------------------------
-[< NuoRDS Proxy](../README.md) 
+[< NuoRDS Proxy](README.md) 

@@ -1,4 +1,4 @@
-**HOW TO INSTALL NUORDS PROXY**  [(?)](../README.md)
+**HOW TO INSTALL NUORDS PROXY**  [(?)](README.md)
 
 **macOS Installation:**
 
@@ -63,4 +63,4 @@
 See "nrdproxyd -h" for all options you can use to meet your system requirements.
 
 ------------------------------
-[< NuoRDS Proxy](../README.md) 
+[< NuoRDS Proxy](README.md) 

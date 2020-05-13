@@ -1,4 +1,4 @@
-**HOW TO BUILD NUORDS PROXY** [(?)](../README.md)
+**HOW TO BUILD NUORDS PROXY** [(?)](README.md)
 
 **macOS:**
 
@@ -65,5 +65,5 @@
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg
    
 ------------------------------
-[< NuoRDS Proxy](../README.md) 
+[< NuoRDS Proxy](README.md) 
 

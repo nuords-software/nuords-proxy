@@ -1,6 +1,6 @@
-**NUORDS PROXY CONFIGURATION EXAMPLES**  [(?)](../README.md)
+**NUORDS PROXY CONFIGURATION EXAMPLES**  [(?)](README.md)
 
 
 
 ------------------------------
-[< NuoRDS Proxy](../README.md) 
+[< NuoRDS Proxy](README.md) 
