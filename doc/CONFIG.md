@@ -14,7 +14,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   
   See [Network Address format](ADDRESS.md) for details. If you are running any target server on the same host, you shoud change the target server port to avoid conflicts.
   
-  
 - The proxy listeners (IPv4|IPv6, TCP).
   
   **Property:** listeners 
@@ -22,7 +21,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   **Default**: 0.0.0.0:3389 [::]:3389 
   
   See 'Network Address format' for details. If you are running any target server on the same host, you shoud change the target server port to avoid conflicts.
-  
   
 - The NuoRDS info protocol availability.
   
@@ -32,7 +30,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   
   If none of target servers is NuoRDS, then disable the info protocol by setting "0".
   
-  
 - The NuoRDS info protocol port (UDP).
   
   **Property:** info_port
@@ -40,7 +37,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   **Default**: 4073
 
   If none of target servers is NuoRDS, then disable the NuoRDS info protocol by setting info_port = 0. If you are running NuoRDS Server on the same host, you should change this info port to avoid conflicts.
-  
   
 - The info request period in seconds.
   
@@ -50,7 +46,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   
   The info request period is a time after which a usage info should be requested from a server.
   
-  
 - The status check period in seconds.
   
   **Property:** status_period
@@ -58,7 +53,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   **Default**: 300
   
   The status check period is a time after which availability of a server must be re-checked.
-  
   
 - The routing cache timeout in seconds.
 
@@ -68,7 +62,6 @@ General proxy server options should be located under **\[proxy\]** section of co
 
   Set "0" to disable routing cache. 
   
-  
 - The connection timeout in seconds.
   
   **Property:** conn_timeout
@@ -77,7 +70,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   
   The connection timeout is a time within which onnection to the server must be established.
   
-  
 - Maximum number of connection faults.
 
   **Property:** max_faults
@@ -85,7 +77,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   **Default**: 2
 
   A faulty server will be disabled till the next check.
-  
   
 - Socket buffering mode.
   
@@ -100,7 +91,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   
   See also 'max_buffer' and 'buffer_mode'.
   
-  
 - Internal buffering mode.
 
   **Property:** buffer_mode
@@ -114,7 +104,6 @@ General proxy server options should be located under **\[proxy\]** section of co
   
   See also 'max_buffer' and 'socket_mode'.
   
-  
 - Maximum IO buffer size.
   
   **Property:** max_buffer
@@ -122,9 +111,7 @@ General proxy server options should be located under **\[proxy\]** section of co
   **Default**: 131072
   
   See also 'socket_mode' and 'buffer_mode'.
-  
-
-
+ 
   A [server.NAME] section describes a target server.
   Add a [server.NAME] section for each target server.
   IMPORTANT: To avoid conflicts, do not use NAME "all".
