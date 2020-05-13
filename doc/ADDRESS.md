@@ -7,7 +7,7 @@ NuoRDS Proxy supports both IPv4 and IPv6 connections. In order to avoid collisio
 - An internet address consists of two colon-separated components: HOST:PORT  
 - If the port is omitted, a default port will be used.  
   
-**An explicit IPv4 address**  
+**An explicit IPv4 address:**  
   
 - The host component represents an IPv4 literal (rfc791).  
 - The host component must not be enclosed into brackets.  

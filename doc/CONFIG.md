@@ -2,7 +2,7 @@
   
 This document describes advanced properties that you can use to tune the proxy server. Before proceeding with advanced tuning, we strongly recommend that you test at least one of [simple configuration examples](EXAMPLES.md).  
   
-**General properties**  
+**General properties.**  
   
 General properties should be located in the **\[proxy\]** section. This section is singular, you should not add any extensions.  
   
@@ -102,7 +102,7 @@ General properties should be located in the **\[proxy\]** section. This section 
   
   See also 'socket_mode' and 'buffer_mode'.  
   
-**A target server**  
+**A target server.**  
   
 A target server properties should be located in a **\[server.NAME\]** section. Add a new section with a unique NAME extension for each target server.  
   
@@ -161,7 +161,7 @@ A target server properties should be located in a **\[server.NAME\]** section. A
   
   A redundant server will not be involved as long as at least one non-redundant server has at least one slot available.  
   
-**A client group**  
+**A client group.**  
   
 A client group properties should be placed in a **\[client.NAME\]** section. Add a new section with a unique NAME extension for each client group.  
   
@@ -184,7 +184,7 @@ A client group properties should be placed in a **\[client.NAME\]** section. Add
   A [balancer.NAME] section describes a balancing module,  
   that is distributing client connections among servers.  
   
-**A balancing unit**  
+**A balancing unit.**  
   
 A balancing unit properties should be placed in a **\[balancer.NAME\]** section. Add a new section with a unique NAME extension for each balancing unit.  
   
