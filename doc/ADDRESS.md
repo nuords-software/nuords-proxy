@@ -1,12 +1,10 @@
 **NUORDS NETOWORK ADDRESS FORMAT** [(?)](README.md)  
   
-NuoRDS Proxy supports both IPv4 and IPv6 connections.  
-In order to avoid collisions please use format below.  
+NuoRDS Proxy supports both IPv4 and IPv6 connections. In order to avoid collisions please use the format below.  
   
 **A generic network address:**  
   
-- An internet address consists of two colon-separated  
-components - host and port.  
+- An internet address consists of two colon-separated components: HOST:PORT  
 - If the port is omitted, a default port will be used.  
   
 **An explicit IPv4 address**  
@@ -34,8 +32,7 @@ components - host and port.
 **A hostname based address:**  
   
 - The host component represents a domain name (FQDN).  
-- If the preferred address family is IPv6, then the  
-host component must be enclosed into square brackets.  
+- If the preferred address family is IPv6, then the host component must be enclosed into square brackets.  
   
   Examples:  
   
