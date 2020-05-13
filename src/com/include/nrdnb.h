@@ -110,7 +110,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_WHOHERE
-  Description : Request to resend NRDNBM_IAMHERE
+  Description : Server(s) status request
   Direction   : Client->Broadcast
   Data type   : none, ignored
 */
@@ -118,7 +118,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_IAMHERE
-  Description : Indicates that server is online
+  Description : The server is online
   Direction   : Server->Broadcast
   Data type   : NRDNBT_INFO (NRDNBT_SERVER for old)
 */
@@ -126,7 +126,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_IAMLOST
-  Description : Indicates that server is down
+  Description : The server went down
   Direction   : Server->Broadcast
   Data type   : NRDNBT_INFO (NRDNBT_SERVER for old)
 */
@@ -134,7 +134,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_GETINFO
-  Description : Request for server info
+  Description : Server info request
   Direction   : Client->Server
   Data type   : none, ignored
 */
@@ -142,7 +142,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_RETINFO
-  Description : Server response to NRDNBM_GETINFO
+  Description : Server info response
   Direction   : Server->Client
   Data type   : NRDNBT_INFO
 */
