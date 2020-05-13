@@ -181,4 +181,3 @@ class nrdnb_client_t:public xtl::thread
 };
 
 #endif
-

@@ -134,49 +134,49 @@ nrdpx_config_t::~nrdpx_config_t()
 
 nrdpx_config_t::iterator nrdpx_config_t::begin()
 {
-    return m_sections.begin();
+    return m_sects.begin();
 }
 
 nrdpx_config_t::iterator nrdpx_config_t::end()
 {
-    return m_sections.end();
+    return m_sects.end();
 }
 
 bool    nrdpx_config_t::empty()
 {
-    return m_sections.empty();
+    return m_sects.empty();
 }
 
 nrdpx_config_t::iterator nrdpx_config_t::next(const iterator& iPrev)
 {
-    if(iPrev == m_sections.end()) return iPrev;
+    if(iPrev == m_sects.end()) return iPrev;
     return (++(*((sections_t::iterator *)&iPrev)));
 }
 
 nrdpx_section_t* nrdpx_config_t::get_section(const iterator& iIter)
 {
-    if(iIter == m_sections.end()) return NULL;
+    if(iIter == m_sects.end()) return NULL;
     return *iIter;
 }
 
 nrdpx_section_t*   nrdpx_config_t::first_section()
 {
-    if(m_sections.empty()) return NULL;
-    return *m_sections.begin();
+    if(m_sects.empty()) return NULL;
+    return *m_sects.begin();
 }
 
-nrdpx_section_t*  nrdpx_config_t::find_section(const xtl::string& sName,bool defClass/*=true*/)
+nrdpx_section_t*  nrdpx_config_t::find_section(const xtl::string& sName,bool bClass/*=true*/)
 {
     if(sName.empty()) return NULL;
     
     xtl::string s;
-    if(defClass && !m_defclass.empty())
-        s=m_defclass+"."+sName;
+    if(bClass && !m_class.empty())
+        s = m_class + "." + sName;
     else
         s = sName;
     
-    for(sections_t::iterator i=m_sections.begin();
-    i != m_sections.end(); i++)
+    for(sections_t::iterator i=m_sects.begin();
+    i != m_sects.end(); i++)
     {
         if(!stricmp((*i)->m_name.c_str(),s.c_str()))
         {
@@ -188,15 +188,15 @@ nrdpx_section_t*  nrdpx_config_t::find_section(const xtl::string& sName,bool def
 }
 
 nrdpx_section_t* nrdpx_config_t::find_by_value(const xtl::string& sKey,
-	         const xtl::string& sVal , bool bCaseSensitive/*=false*/)
+	         const xtl::string& sVal , bool bCase/*=false*/)
 {
-    for(sections_t::iterator i=m_sections.begin();
-    i != m_sections.end(); i++)
+    for(sections_t::iterator i=m_sects.begin();
+        i != m_sects.end(); i++)
     {
         nrdpx_section_t::items_t::iterator v=(*i)->m_items.find(sKey);
         if(v != (*i)->m_items.end() &&
-          ((!bCaseSensitive && !stricmp(v->second.val.c_str(),sVal.c_str())) ||
-          (bCaseSensitive  && !strcmp (v->second.val.c_str(),sVal.c_str()))))
+          ((!bCase && !stricmp(v->second.val.c_str(),sVal.c_str())) ||
+          (bCase && !strcmp (v->second.val.c_str(),sVal.c_str()))))
         {
             return *i;
         }
@@ -243,7 +243,7 @@ void    nrdpx_config_t::add_sect(nrdpx_section_t * sc)
     if(!esc)
     {
         //Add new item
-        m_sections.push_back(sc);
+        m_sects.push_back(sc);
     }
     else
     {
@@ -258,7 +258,7 @@ void    nrdpx_config_t::add_sect(nrdpx_section_t * sc)
 }
 
 bool nrdpx_config_t::load_from_file(const xtl::string& filePath,
-                const xtl::string& defClass/*=xtl::snull*/)
+                const xtl::string& sClass/*=xtl::snull*/)
 {
     
     FILE * fd=fopen(filePath.c_str(), "rb");
@@ -284,7 +284,7 @@ bool nrdpx_config_t::load_from_file(const xtl::string& filePath,
     char *cc=buf,*ln=NULL;
     nrdpx_section_t *  sc=NULL;
     bool tp=false,cm=false;
-    m_defclass = defClass;
+    m_class = sClass;
     
     for(;*cc != '\0';cc++)
     {
@@ -314,8 +314,8 @@ bool nrdpx_config_t::load_from_file(const xtl::string& filePath,
             if(!sc && ln &&  *cc == ']' )
             {
                 *cc ='\0'; ln++;
-                if(ln != cc && (m_defclass.empty() ||
-                !strnicmp(m_defclass.c_str(),ln,m_defclass.size())))
+                if(ln != cc && (m_class.empty() ||
+                !strnicmp(m_class.c_str(),ln,m_class.size())))
                 {
                     sc = new nrdpx_section_t(ln);
                 }
@@ -331,13 +331,11 @@ bool nrdpx_config_t::load_from_file(const xtl::string& filePath,
 
 void nrdpx_config_t::clear()
 {
-    for(sections_t::iterator i=m_sections.begin();
-    i != m_sections.end(); i++)
+    for(sections_t::iterator i=m_sects.begin();
+    i != m_sects.end(); i++)
     {
         delete *i;
     }
     
-    m_sections.clear();
+    m_sects.clear();
 }
-
-

@@ -57,4 +57,3 @@ extern bool        nrdpx_socket_set_send_buffer(NRD_SOCKET sock,int size);
 extern bool        nrdpx_socket_set_recv_buffer(NRD_SOCKET sock,int size);
 
 #endif
-

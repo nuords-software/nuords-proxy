@@ -40,35 +40,35 @@ xtl::thread(),owner(NULL), period(0){}
 
 nrdnb_client_t::control_t::~control_t()
 {
-   terminate_and_wait();
+    terminate_and_wait();
 }
 
 void nrdnb_client_t::control_t::main()
-{    
+{
     time_t tm=0,tmr=0,cnt = 0;
     while(!is_terminated())
     {
-       xtl::sleep(250);
-       	
-       if(owner) 
-       {
-           //Check servers list each 0.5 sec
-           if(owner->is_created() && ++cnt > 1){
-               owner->check_svrs();
-               cnt = 0;
-           }
-           
-           //Raise timer event if timer is set
-           if(period)
-           {
-               ::time(&tm);
-               if(!tmr || tm >= tmr)
-               {
-                  if(tmr) owner->raise_event(NRDNBC_EVT_ONTIMER,NULL);
-                  tmr = tm + period;
-               }
-           }
-       }
+        xtl::sleep(250);
+        
+        if(owner)
+        {
+            //Check servers list each 0.5 sec
+            if(owner->is_created() && ++cnt > 1){
+                owner->check_svrs();
+                cnt = 0;
+            }
+            
+            //Raise timer event if timer is set
+            if(period)
+            {
+                ::time(&tm);
+                if(!tmr || tm >= tmr)
+                {
+                    if(tmr) owner->raise_event(NRDNBC_EVT_ONTIMER,NULL);
+                    tmr = tm + period;
+                }
+            }
+        }
     }
 }
 
@@ -81,8 +81,8 @@ m_refr(NRD_FALSE),m_tout(15),m_tref(300)
 
 nrdnb_client_t::~nrdnb_client_t()
 {
-   stop_control_timer();
-   stop_info_tracker();
+    stop_control_timer();
+    stop_info_tracker();
 }
 
 void nrdnb_client_t::main()
@@ -140,7 +140,7 @@ void nrdnb_client_t::main()
             item.lsid = item.host + ":" + xtl::itos(item.info.svc.port);
             
             append = true;
-
+            
             {
                 xtl::locker _l(&m_smtx);
                 for (nrdnb_items_t::iterator i=m_svrs.begin();
@@ -200,11 +200,11 @@ void nrdnb_client_t::main()
 void   nrdnb_client_t::close_sock()
 {
     XTL_LOCK_PTR ( this );
-
-    if(m_sock >=0 ) 
-    {	
+    
+    if(m_sock >=0 )
+    {
         ::shutdown(m_sock, SD_BOTH);//linux
-    	::closesocket(m_sock); 
+        ::closesocket(m_sock);
         m_sock = NRD_NOSOCK;
     }
 }
@@ -215,28 +215,28 @@ bool   nrdnb_client_t::create_sock()
     
     if( m_sock != NRD_NOSOCK) {
         ::shutdown(m_sock, SD_BOTH);//linux
-    	::closesocket(m_sock); 
+        ::closesocket(m_sock);
         m_sock = NRD_NOSOCK;
     }
-
+    
     xtl::inet::addr_t addr;
     int               family = xtl::inet::guess_addr_family(m_host);
-
+    
     if(!xtl::inet::host_to_addr(m_host, &addr)) {
-         raise_event(NRDNBC_EVT_ONERROR,(void *)"Could not interpret host");
-         raise_event(NRDNBC_EVT_ONINFO,(void *)"Switching to 'any' address");
-    	 xtl::inet::set_addr_any(family, &addr);
+        raise_event(NRDNBC_EVT_ONERROR,(void *)"Could not interpret host");
+        raise_event(NRDNBC_EVT_ONINFO,(void *)"Switching to 'any' address");
+        xtl::inet::set_addr_any(family, &addr);
     }
     
     xtl::inet::set_addr_port(&addr, m_port);
-
+    
     m_sock = ::socket(addr.sa_family, SOCK_DGRAM, 0);
     
     if(m_sock == NRD_NOSOCK) {
         raise_event(NRDNBC_EVT_ONERROR,(void *)"Could not create socket");
         return false;
     }
-
+    
     if(0 > ::bind(m_sock,&addr, xtl::inet::get_addr_length(&addr)))
     {
         ::closesocket(m_sock);
@@ -244,7 +244,7 @@ bool   nrdnb_client_t::create_sock()
         raise_event(NRDNBC_EVT_ONERROR,(void *)"Could not bind socket");
         return false;
     }
-
+    
     return true;
 }
 
@@ -261,18 +261,18 @@ bool nrdnb_client_t::send_len(void* buf,size_t len, struct sockaddr* to, socklen
 
 bool nrdnb_client_t::recv_msg(HNRD_NBMSG* pmsg,struct sockaddr* from,socklen_t* fromlen)
 {
-   return recv_len(pmsg,sizeof(HNRD_NBMSG),from,fromlen) &&
+    return recv_len(pmsg,sizeof(HNRD_NBMSG),from,fromlen) &&
            !memcmp(pmsg->sig,NRD_NBSIG,sizeof(NRD_NBSIG)) &&
-           pmsg->msg >= NRDNBM_MIN  && pmsg->msg <= NRDNBM_MAX; 
+           pmsg->msg >= NRDNBM_MIN  && pmsg->msg <= NRDNBM_MAX;
 }
 
 bool nrdnb_client_t::send_getinfo(const xtl::string& host,NRD_UINT port/*=0*/,int times /*= 1*/)
 {
     if(m_sock == NRD_NOSOCK) return false;
-
+    
     if(times <= 0) times = 1; //default
     if(!port) port = NRD_BROWSE_PORT; // default
-
+    
     //TODO: Remove this code after impementing info protocol IPv6
     if(AF_INET6 == xtl::inet::guess_addr_family(m_inst.m_host)){
         m_inst.raise_event(NRDNBC_EVT_ONERROR,(void *)"Info IPv6 is not supported");
@@ -280,12 +280,12 @@ bool nrdnb_client_t::send_getinfo(const xtl::string& host,NRD_UINT port/*=0*/,in
     }
     
     xtl::inet::addr_t addr;
-
+    
     if(!xtl::inet::host_to_addr(host, &addr)) {
         raise_event(NRDNBC_EVT_ONERROR,(void *)"Server host is not valid");
         return false;
     }
-
+    
     xtl::inet::set_addr_port(&addr,m_port);
     
     HNRD_NBMSG msg;
@@ -294,7 +294,7 @@ bool nrdnb_client_t::send_getinfo(const xtl::string& host,NRD_UINT port/*=0*/,in
     memset(&msg.dat,0,sizeof(msg.dat));
     
     bool ret = false;
-
+    
     socklen_t  alen = xtl::inet::get_addr_length(&addr);
     
     for (int i=0;i<times;i++)
@@ -314,20 +314,20 @@ void  nrdnb_client_t::refresh_svrs(bool lostw/*=false*/)
     if(!is_created()) return;
     
     {
-      xtl::locker _l(&m_smtx);
-      /* 1. Set the LOST state for the servers that still WAIT.
-         2. Set the WAIT state for the servers that in the LIST. */
-      
-      time_t tmm; time(&tmm);
-      for (nrdnb_items_t::iterator i=m_svrs.begin();
-         i != m_svrs.end();i++)
-      {
-        i->time=tmm; /*Update activity time*/
-        if(lostw && i->state == NRDNBS_WAIT)
-            i->state = NRDNBS_LOST;
-        else if(i->state == NRDNBS_LIST)
-            i->state = NRDNBS_WAIT;
-      }
+        xtl::locker _l(&m_smtx);
+        /* 1. Set the LOST state for the servers that still WAIT.
+        2. Set the WAIT state for the servers that in the LIST. */
+        
+        time_t tmm; time(&tmm);
+
+        for (nrdnb_items_t::iterator i=m_svrs.begin(); i != m_svrs.end();i++)
+        {
+            i->time=tmm; /*Update activity time*/
+            if(lostw && i->state == NRDNBS_WAIT)
+                i->state = NRDNBS_LOST;
+            else if(i->state == NRDNBS_LIST)
+                i->state = NRDNBS_WAIT;
+        }
     }
     m_refr = NRD_TRUE;
     close_sock();
@@ -340,33 +340,34 @@ void  nrdnb_client_t::check_svrs()
     
     time_t tmm; time(&tmm);
     {
-      xtl::locker _l(&m_smtx);
-      for (size_t i=0; i < m_svrs.size();i++)
-      {
-        if(m_svrs[i].state == NRDNBS_LOST)
+        xtl::locker _l(&m_smtx);
+
+        for (size_t i=0; i < m_svrs.size();i++)
         {
-            evt = true;
-            m_svrs.erase(m_svrs.begin() + i);
-            i--;
-        }
-        else 
-        {
-            if(m_svrs[i].state == NRDNBS_HERE)
+            if(m_svrs[i].state == NRDNBS_LOST)
             {
                 evt = true;
-                m_svrs[i].state = NRDNBS_LIST;
+                m_svrs.erase(m_svrs.begin() + i);
+                i--;
             }
-
-            if(m_tref > 0 )
+            else
             {
-                /*Refresh if a listed server is 
-                  inactive more than refresh time*/
-                rfr= (rfr || ((NRD_UINT)(tmm - m_svrs[i].time)) > m_tref);
+                if(m_svrs[i].state == NRDNBS_HERE)
+                {
+                    evt = true;
+                    m_svrs[i].state = NRDNBS_LIST;
+                }
+                
+                if(m_tref > 0 )
+                {
+                    /*Refresh if a listed server is
+                    inactive more than refresh time*/
+                    rfr= (rfr || ((NRD_UINT)(tmm - m_svrs[i].time)) > m_tref);
+                }
             }
         }
-      }
-
-      if(evt) raise_event(NRDNBC_EVT_SVRLIST,&m_svrs);
+        
+        if(evt) raise_event(NRDNBC_EVT_SVRLIST,&m_svrs);
     }
     
     if(rfr) refresh_svrs(true);
@@ -374,29 +375,36 @@ void  nrdnb_client_t::check_svrs()
 
 bool   nrdnb_client_t::raise_event(NRD_UINT event, void * data)
 {
-    xtl::locker _l(&m_cmtx);   
+    xtl::locker _l(&m_cmtx);
+    
     bool ret=false;
-    for (callbacks_t::iterator i=m_cbcs.begin();
-         i != m_cbcs.end();i++)
+
+    for (callbacks_t::iterator i=m_cbcs.begin(); i != m_cbcs.end();i++)
     {
-       ret |= (NRD_FALSE != (*(i->cbc))(event,data,i->par));
+        ret |= (NRD_FALSE != (*(i->cbc))(event,data,i->par));
     }
+
     return ret;
 }
 
 NRD_BOOL  nrdnb_client_t::register_callback(nrdnb_callback_t pCbc, NRD_VOID* pPar)
 {
     if(pCbc == NULL) return NRD_FALSE;
+    
     xtl::locker _l(&m_inst.m_cmtx);
+
     for (callbacks_t::iterator i=m_inst.m_cbcs.begin();
          i != m_inst.m_cbcs.end();i++)
     {
-       if(i->cbc  == pCbc && i->par == pPar) return NRD_TRUE;
+        if(i->cbc  == pCbc && i->par == pPar) return NRD_TRUE;
     }
+    
     callback_t cbi;
     cbi.cbc = pCbc;
     cbi.par = pPar;
+
     m_inst.m_cbcs.push_back(cbi);
+    
     return NRD_TRUE;
 }
 
@@ -405,13 +413,13 @@ NRD_BOOL  nrdnb_client_t::unregister_callback(nrdnb_callback_t pCbc, NRD_VOID* p
     if(pCbc == NULL) return NRD_FALSE;
     xtl::locker _l(&m_inst.m_cmtx);
     for (callbacks_t::iterator i=m_inst.m_cbcs.begin();
-         i != m_inst.m_cbcs.end();i++)
+    i != m_inst.m_cbcs.end();i++)
     {
-       if(i->cbc  == pCbc && i->par == pPar)
-       {
-           m_inst.m_cbcs.erase(i);  
-           break; 
-       }
+        if(i->cbc  == pCbc && i->par == pPar)
+        {
+            m_inst.m_cbcs.erase(i);
+            break;
+        }
     }
     return NRD_TRUE;
 }
@@ -425,44 +433,44 @@ NRD_BOOL   nrdnb_client_t::request_server_info(const xtl::string& sHost, NRD_UIN
 NRD_BOOL  nrdnb_client_t::start_info_tracker(const xtl::string& sHost, NRD_UINT uPort)
 {
     if(m_inst.is_created()) return NRD_FALSE;
-
+    
     m_inst.m_port  = !uPort ? NRD_BROWSE_PORT : uPort;
     m_inst.m_host  = sHost.empty() ? XTL_INET_IPV4_ANY : sHost;
-
+    
     //TODO: Remove this code after impementing Info IPv6
     if(AF_INET6 == xtl::inet::guess_addr_family(m_inst.m_host)){
-         m_inst.raise_event(NRDNBC_EVT_ONERROR,(void *)"Info IPv6 is not supported");
-         m_inst.raise_event(NRDNBC_EVT_ONINFO,(void *)"Switching to 'any' address");
-         m_inst.m_host = XTL_INET_IPV4_ANY;
+        m_inst.raise_event(NRDNBC_EVT_ONERROR,(void *)"Info IPv6 is not supported");
+        m_inst.raise_event(NRDNBC_EVT_ONINFO,(void *)"Switching to 'any' address");
+        m_inst.m_host = XTL_INET_IPV4_ANY;
     }
-
+    
     m_inst.m_refr = NRD_FALSE;
-
+    
     return m_inst.create();
 }
 
 NRD_VOID  nrdnb_client_t::stop_info_tracker()
 {
-   if(m_inst.is_created())
-   {
+    if(m_inst.is_created())
+    {
         /*Mark thread as terminated*/
         m_inst.terminate();
         
         /*Close the socket to unlock the loop*/
         m_inst.close_sock();
-         
+        
         /*Wait the thread end*/
         m_inst.wait_for(60);
-   }
-
-   /*Just in case clear the servers list*/
-   xtl::locker _l(&m_inst.m_smtx);
-   m_inst.m_svrs.clear();
+    }
+    
+    /*Just in case clear the servers list*/
+    xtl::locker _l(&m_inst.m_smtx);
+    m_inst.m_svrs.clear();
 }
 
 NRD_BOOL nrdnb_client_t::is_tracker_started()
 {
-  return m_inst.is_created();
+    return m_inst.is_created();
 }
 
 NRD_UINT nrdnb_client_t::get_tracker_port()
@@ -478,12 +486,15 @@ xtl::string nrdnb_client_t::get_tracker_host()
 NRD_BOOL  nrdnb_client_t::refresh_servers_list(NRD_BOOL bClear)
 {
     if(!m_inst.is_created()) return NRD_FALSE;
+    
     if(bClear)
     {
-         xtl::locker _l(&m_inst.m_smtx);
-         m_inst.m_svrs.clear();
+        xtl::locker _l(&m_inst.m_smtx);
+        m_inst.m_svrs.clear();
     }
+    
     m_inst.refresh_svrs();
+    
     return NRD_TRUE;
 }
 
@@ -493,32 +504,32 @@ NRD_VOID nrdnb_client_t::set_reconnect_time(NRD_UINT uTime/*seconds*/)
 }
 
 NRD_BOOL    nrdnb_client_t::start_control_timer(NRD_UINT uPeriod/*=1 sec*/)
-{ 
-   	m_inst.m_ctrl.period = xtl::max(NRD_UINT(1), uPeriod);
-   	return m_inst.m_ctrl.is_created() ? NRD_FALSE : m_inst.m_ctrl.create(); 	
+{
+    m_inst.m_ctrl.period = xtl::max(NRD_UINT(1), uPeriod);
+    return m_inst.m_ctrl.is_created() ? NRD_FALSE : m_inst.m_ctrl.create();
 }
 
 NRD_VOID    nrdnb_client_t::stop_control_timer()
-{	
-	  m_inst.m_ctrl.destroy();
+{
+    m_inst.m_ctrl.destroy();
 }
 
 NRD_BOOL  nrdnb_client_t::is_control_started(){
-	
-	 return  m_inst.m_ctrl.is_created();
+    
+    return  m_inst.m_ctrl.is_created();
 }
 
 NRD_UINT nrdnb_client_t::get_reconnect_time()
-{ 
-   return m_inst.m_tout;
+{
+    return m_inst.m_tout;
 }
 
 NRD_VOID nrdnb_client_t::set_refresh_time(NRD_UINT uTime/*seconds*/)
 {
-   m_inst.m_tref = uTime;
+    m_inst.m_tref = uTime;
 }
 
 NRD_UINT nrdnb_client_t::get_refresh_time()
-{ 
-   return m_inst.m_tref;
+{
+    return m_inst.m_tref;
 }

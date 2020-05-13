@@ -369,8 +369,3 @@ bool nrdpx_socket_set_recv_buffer(NRD_SOCKET sock,int size)
 {
     return !::setsockopt(sock, SOL_SOCKET, SO_RCVBUF,(char *)&size,sizeof(size));
 }
-
-
-
-
-

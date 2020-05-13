@@ -72,8 +72,8 @@ class nrdpx_config_t
 {
     private:
     typedef xtl::vector<nrdpx_section_t *> sections_t;
-    sections_t   m_sections;
-    xtl::string  m_defclass;
+    sections_t   m_sects;
+    xtl::string  m_class;
     void         add_item(nrdpx_section_t * sc,char * ln,size_t sz);
     void         add_sect(nrdpx_section_t * sc);
     
@@ -92,11 +92,11 @@ class nrdpx_config_t
      
     nrdpx_section_t*   get_section(const iterator& iIter);
     nrdpx_section_t*   first_section();
-    nrdpx_section_t*   find_section(const xtl::string& sName,bool defClass=true);
-    nrdpx_section_t*   find_by_value(const xtl::string& sKey,const xtl::string& sVal,bool bCaseSensitive=false);
+    nrdpx_section_t*   find_section(const xtl::string& sName,bool bClass=true);
+    nrdpx_section_t*   find_by_value(const xtl::string& sKey,const xtl::string& sVal,bool bCase=false);
     nrdpx_section_t*   find_by_value(const xtl::string& sKey,int iVal);
     bool               load_from_file(const xtl::string& filePath,
-    const xtl::string& defClass=xtl::snull);
+    const xtl::string& sClass=xtl::snull);
    
 };
 
@@ -105,4 +105,3 @@ class nrdpx_config_t
 #endif
 
 #endif
-

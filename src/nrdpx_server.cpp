@@ -1003,7 +1003,6 @@ nrdpx_server_t *  nrdpx_select_server(nrdpx_balancer_t* bal, nrdpx_client_t* cln
     return ret;
 }
 
-
 bool   nrdpx_load_config()
 {
     nrdpx_config_t proxy_cfg;
