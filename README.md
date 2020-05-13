@@ -1,5 +1,6 @@
 **NUORDS PROXY SERVER**
 
+
 NuoRDS Proxy (proxy) is a protocol agnostic reverse proxy and IP-based load balancer. Originally designed for NuoRDS Terminal Server for Mac, the NuoRDS Proxy can in fact distribute other connection based protocols, such as VNC, ARD, etc. However, keep in mind that usage of NuoRDS Proxy with request/response protocols, such as HTTP, may not be effective. For a request/response protocol, we recommend that you use a protocol dependent solution.
 
 The proxy distributes client connections based on capacity of a target server. If the target server is NuoRDS Terminal Server, then other parameters, such CPU and memory usage, can be added into equation.

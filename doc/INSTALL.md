@@ -1,7 +1,4 @@
-[< NuoRDS Proxy](../README.md)
-------------------------------
-
-**HOW TO INSTALL NUORDS PROXY**
+**HOW TO INSTALL NUORDS PROXY**  [(?)](../README.md)
 
 
 **macOS Installation**
