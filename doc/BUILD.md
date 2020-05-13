@@ -1,7 +1,7 @@
-HOW TO BUILD NUORDS PROXY SERVER
+**HOW TO BUILD NUORDS PROXY SERVER**
 
-----------------------------------
-Mac OS:
+
+**macOS**
 
 1. Xcode and dev. tools are required.
 
@@ -13,8 +13,8 @@ Mac OS:
 
    make ship
 
-----------------------------------
-Linux:
+
+**Linux**
 
 1. GCC 4+ and dev. tools are required.
    
@@ -26,8 +26,8 @@ Linux:
 
    make ship
 
-----------------------------------
-Unix:
+
+**Unix**
 
 1. GCC 4+ and dev. tools are required.
 
@@ -39,8 +39,8 @@ Unix:
 
    make ship
 
-----------------------------------
-Windows:
+
+**Windows**
 
 1. VisualStudio 11+ is required.
 
@@ -50,8 +50,8 @@ Windows:
 
 4. Build the solution.
 
-----------------------------------
-TEST:
+
+**TESTING**
 
 1. Navigate into a shipping directory.
 
@@ -68,5 +68,4 @@ TEST:
 5. Launch proxy in verbose console mode:
 
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg
-   
-----------------------------------
+

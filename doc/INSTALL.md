@@ -1,10 +1,6 @@
-HOW TO INSTALL NUORDS PROXY SERVER
+**HOW TO INSTALL NUORDS PROXY SERVER**
 
-----------------------------------
-MAC OS:
-
-----------------------------------
-Installation.
+**macOS Installation**
 
 1. Unpack NuoRDS Proxy package into a directory.
 
@@ -14,18 +10,22 @@ Installation.
 
 3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.template".
 
-4. Copy "nrdproxyd.cfg" to "/etc/nuords/" directory:
+4. Test your configuration with verbose output:
+
+   /usr/local/bin/nrdproxyd -lc -lv -cf nrdproxyd.cfg 
+
+5. Copy "nrdproxyd.cfg" to "/etc/nuords/" directory:
 
    sudo cp ./nrdproxyd.cfg /etc/nuords/nrdproxyd.cfg
 
-5. Start NuoRDS Proxy daemon: 
+6. Start NuoRDS Proxy daemon: 
 
    sudo nrdproxyctl start -w
 
-6. Check log messages in /var/log/nrdproxyd.log
+7. Check log messages in /var/log/nrdproxyd.log
 
-----------------------------------
-Troubleshooting.
+
+**macOS Troubleshooting**
 
 1. Stop NuoRDS Proxy daemon daemon:
 
@@ -47,13 +47,10 @@ Troubleshooting.
 
    sudo nrdproxyctl start -w 
 
-----------------------------------
-OTHER OS:
 
-IMPORTANT: Unfortunately we do not have installer scripts for other operating systems.
+**Other OS Installation**
 
-----------------------------------
-Installation.
+*IMPORTANT*: Unfortunately we do not have installer scripts for other operating systems.
 
 1. Unpack NuoRDS Proxy package into a directory.
 
@@ -66,6 +63,4 @@ Installation.
 6. Create the daemon/service config to launch "nrdproxyd" properly at system startup. 
 
 See "nrdproxyd -h" for all options you can use to meet your system requirements.
-
-----------------------------------
 
