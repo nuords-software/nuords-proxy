@@ -1,6 +1,4 @@
-**HOW TO BUILD NUORDS PROXY**
-
-[What is NuoRDS Proxy?](../README.md)
+**HOW TO BUILD NUORDS PROXY** [?](../README.md)
 
 **macOS**
 
