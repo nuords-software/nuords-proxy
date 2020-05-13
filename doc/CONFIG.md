@@ -8,107 +8,99 @@ General proxy server options should be located under **\[proxy\]** section of co
 
 - The proxy listeners (IPv4|IPv6, TCP).
   
-  **Property:** listeners 
-  **Format:** Comma|Space-separated list of addresses   
-  **Default**: 0.0.0.0:3389 [::]:3389
+  **Property:** listeners  
+  **Format:** Comma|Space-separated list of addresses  
+  **Default**: 0.0.0.0:3389 [::]:3389  
   
   See [Network Address format](ADDRESS.md) for details. If you are running any target server on the same host, you shoud change the target server port to avoid conflicts.
-  
-- The proxy listeners (IPv4|IPv6, TCP).
-  
-  **Property:** listeners 
-  **Format:** Comma|Space-separated list of addresses   
-  **Default**: 0.0.0.0:3389 [::]:3389 
-  
-  See 'Network Address format' for details. If you are running any target server on the same host, you shoud change the target server port to avoid conflicts.
-  
+
 - The NuoRDS info protocol availability.
   
-  **Property:** info_enabled
-  **Format:** 0|1   
-  **Default**: 1
+  **Property:** info_enabled  
+  **Format:** 0|1  
+  **Default**: 1  
   
   If none of target servers is NuoRDS, then disable the info protocol by setting "0".
   
 - The NuoRDS info protocol port (UDP).
   
-  **Property:** info_port
-  **Format:** Integer
-  **Default**: 4073
+  **Property:** info_port  
+  **Format:** Integer  
+  **Default**: 4073  
 
   If none of target servers is NuoRDS, then disable the NuoRDS info protocol by setting info_port = 0. If you are running NuoRDS Server on the same host, you should change this info port to avoid conflicts.
   
 - The info request period in seconds.
   
-  **Property:** info_period
-  **Format:** Integer,  10+
-  **Default**: 15
+  **Property:** info_period  
+  **Format:** Integer,  10+  
+  **Default**: 15  
   
   The info request period is a time after which a usage info should be requested from a server.
   
 - The status check period in seconds.
   
-  **Property:** status_period
-  **Format:** Integer,  60+
-  **Default**: 300
+  **Property:** status_period  
+  **Format:** Integer,  60+  
+  **Default**: 300  
   
   The status check period is a time after which availability of a server must be re-checked.
   
 - The routing cache timeout in seconds.
 
-  **Property:** cache_timeout
-  **Format:** Integer, 0|10+
-  **Default**: 60
+  **Property:** cache_timeout  
+  **Format:** Integer, 0|10+  
+  **Default**: 60  
 
   Set "0" to disable routing cache. 
   
 - The connection timeout in seconds.
   
-  **Property:** conn_timeout
-  **Format:** Integer,  10...900
-  **Default**: 30
+  **Property:** conn_timeout  
+  **Format:** Integer,  10...900  
+  **Default**: 30  
   
   The connection timeout is a time within which onnection to the server must be established.
   
 - Maximum number of connection faults.
 
-  **Property:** max_faults
-  **Format:** Integer, 1+
-  **Default**: 2
+  **Property:** max_faults  
+  **Format:** Integer, 1+  
+  **Default**: 2  
 
   A faulty server will be disabled till the next check.
   
 - Socket buffering mode.
   
-  **Property:** socket_mode
-  **Format:** Integer, see Values
-  **Default**: 0
+  **Property:** socket_mode  
+  **Format:** Integer, see Values  
+  **Default**: 0  
   
-  **Values:**
-  0 - Use operating system defaults.
-  1 - Align socket buffers with a peer.
-  2 - Use 'max_buffer' for socket buffers. 
+  **Values:**  
+  0 - Use operating system defaults.  
+  1 - Align socket buffers with a peer.  
+  2 - Use 'max_buffer' for socket buffers.   
   
   See also 'max_buffer' and 'buffer_mode'.
   
 - Internal buffering mode.
 
-  **Property:** buffer_mode
-  **Format:** Integer, see Values
-  **Default**: 0
+  **Property:** buffer_mode  
+  **Format:** Integer, see Values  
+  **Default**: 0  
 
-  **Values:**
-  0 - Use proxy application defaults.
-  1 - Align internal buffers with a socket.
-  2 - Use 'max_buffer' for internal buffers. 
+  **Values:**  
+  0 - Use proxy application defaults.  
+  1 - Align internal buffers with a socket.  
+  2 - Use 'max_buffer' for internal buffers.  
   
   See also 'max_buffer' and 'socket_mode'.
   
 - Maximum IO buffer size.
   
-  **Property:** max_buffer
-  **Format:** Integer, 8760...131072
-  **Default**: 131072
+  **Property:** max_buffer  
+  **Format:** Integer, 8760...131072  
+  **Default**: 131072  
   
   See also 'socket_mode' and 'buffer_mode'.
  
