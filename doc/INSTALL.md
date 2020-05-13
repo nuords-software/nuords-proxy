@@ -24,7 +24,6 @@
 
 7. Check log messages in /var/log/nrdproxyd.log
 
-
 **macOS Troubleshooting:**
 
 1. Stop NuoRDS Proxy daemon daemon:
