@@ -58,9 +58,9 @@
 
 3. Create nrdproxyd.cfg using nrdproxyd.cfg.simple or nrdproxyd.cfg.template.
 
-4. Adjust system firewall if necessary (default ports: 3389(TCP)).
+4. Adjust system firewall if necessary (default port: 3389(TCP)).
 
-5. Launch proxy in verbose console mode:
+5. Launch proxy in a verbose console mode:
 
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg
    
