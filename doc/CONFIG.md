@@ -20,7 +20,7 @@ General properties should be located in the **\[proxy\]** section. This section 
   **Format:** 0|1  
   **Default**: 1  
   
-  If none of target servers is NuoRDS, then disable the info protocol by setting "0".  
+  If none of target servers is NuoRDS, then disable the info protocol by setting '0'.  
   
 - The NuoRDS info protocol port (UDP).  
   
@@ -28,7 +28,7 @@ General properties should be located in the **\[proxy\]** section. This section 
   **Format:** Integer  
   **Default**: 4073  
   
-  If none of target servers is NuoRDS, then disable the NuoRDS info protocol by setting info_port = 0. If you are running NuoRDS Server on the same host, you should change this info port to avoid conflicts.  
+  If you are running NuoRDS Server on the same host, you should change this info port to avoid conflicts.  
   
 - The info request period in seconds.  
   
@@ -52,7 +52,7 @@ General properties should be located in the **\[proxy\]** section. This section 
   **Format:** Integer, 0|10+  
   **Default**: 60  
   
-  Set "0" to disable routing cache.  
+  Set '0' to disable the routing cache.  
   
 - The connection timeout in seconds.  
   
