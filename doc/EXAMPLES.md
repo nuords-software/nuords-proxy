@@ -38,7 +38,7 @@ servers = all
   
 **Two target servers with proxy on the first host**  
   
-This configuration is similar to previous one, except we assume that the proxy server is istalled on the same host with the 'server01'. In order to avoid conflicts with the main protocol, the target port of the 'server01' should be changed. Please note that the 'server01' configuration must reflect the change of port. Also we assume that target server is NuoRDS Terminal Server. Therefore,to avoid conflicts with the info protocol, the info port should be changed as well. Ths change affects only proxy and should not be reflected by the server config.  
+This configuration is similar to previous one, except we assume that the proxy server is installed on the same host with the 'server01'. In order to avoid conflicts with the main protocol, the target port of the 'server01' should be changed. Please note that the 'server01' configuration must reflect the change of port. Also we assume that target server is NuoRDS Terminal Server. Therefore,to avoid conflicts with the info protocol, the info port should be changed as well. Ths change affects only proxy and should not be reflected by the server config.  
   
 ```  
 [proxy]  
