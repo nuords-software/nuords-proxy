@@ -33,11 +33,12 @@
 
 /********************************************************************/
 //FORWARD DECLARATIONS
-//TODO: Workaround. Remove forward declarations this after refactoring
+//TODO: Remove forward declarations after refactoring.
 
 #ifndef nrdpx_log
    #define nrdpx_log nrdpx_log_write
 #endif
+
 extern void        nrdpx_log_write(int type, const char *msg, ...);
 extern int         nrdpx_proxy_max_buffer();
 
