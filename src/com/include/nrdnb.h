@@ -118,7 +118,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_IAMHERE
-  Description : The server is online
+  Description : Server is online
   Direction   : Server->Broadcast
   Data type   : NRDNBT_INFO
 */
@@ -126,7 +126,7 @@ NRD_TYPEDEF_STRUCT(_HNRD_NBINF)
 
 /*
   Message     : NRDNBM_IAMLOST
-  Description : The server went down
+  Description : Server went down
   Direction   : Server->Broadcast
   Data type   : NRDNBT_INFO
 */
