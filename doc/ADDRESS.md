@@ -1,4 +1,6 @@
-**NETWORK ADDRESS FORMAT**
+**NUORDS PROXY ADDRESS FORMAT**
+
+[What is NuoRDS Proxy?](../README.md)
 
 NuoRDS Proxy supports both IPv4 and IPv6 connections.
 In order to avoid collisions please use format below.

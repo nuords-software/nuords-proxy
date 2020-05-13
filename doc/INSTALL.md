@@ -1,4 +1,6 @@
-**HOW TO INSTALL NUORDS PROXY SERVER**
+**HOW TO INSTALL NUORDS PROXY**
+
+[What is NuoRDS Proxy?](../README.md)
 
 **macOS Installation**
 

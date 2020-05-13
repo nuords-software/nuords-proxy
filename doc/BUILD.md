@@ -1,5 +1,6 @@
-**HOW TO BUILD NUORDS PROXY SERVER**
+**HOW TO BUILD NUORDS PROXY**
 
+[What is NuoRDS Proxy?](../README.md)
 
 **macOS**
 
