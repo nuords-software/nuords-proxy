@@ -10,8 +10,8 @@ The proxy can also filter connections and cache a target server selection. Since
 
 [How to install NuoRDS Proxy.](doc/INSTALL.md)
 
-[How to configure NuoRDS Proxy.](doc/CONFIG.md)
-
 [Simple configuration examples.](doc/EXAMPLES.md)
+
+[NuoRDS Proxy configuration.](doc/CONFIG.md)
 
 [NuoRDS Proxy address format.](doc/ADDRESS.md)

@@ -65,13 +65,13 @@
 #
 # Property: listeners 
 # Format: Comma|Space-separated list of addresses   
-# Default: 0.0.0.0:3389, [::]:3389 
+# Default: 0.0.0.0:3389 [::]:3389 
 #
 # See 'Network Address format' for details. If you are 
 # running any target server on the same host, you shoud 
 # change the target server port to avoid conflicts.
 
-;listeners = 0.0.0.0:3389, [::]:3389
+;listeners = 0.0.0.0:3389 [::]:3389
 
 # The NuoRDS info protocol availability.
 #

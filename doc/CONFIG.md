@@ -1,4 +1,4 @@
-**NUORDS PROXY CONFIGURATION GUIDE**  [(?)](README.md)
+**NUORDS PROXY CONFIGURATION**  [(?)](README.md)
 
 This document describes advanced options that you can use to tune the proxy server. Before proceeding with advanced tuning, we strongly recommedn that you test one of [simple configuration examples](CONFIG.md) 
 
@@ -6,9 +6,9 @@ This document describes advanced options that you can use to tune the proxy serv
 
 General proxy server options should be located under **\[proxy\]** section of configuration file. This section is singular and should not be extended with a name.
 
-**Property**: listeners 
+**Property**: listeners   
 **Format**: Comma|Space-separated list of addresses   
-**Default**: 0.0.0.0:3389, [::]:3389
+**Default**: 0.0.0.0:3389 [::]:3389
 
 See [Network Address format](ADDRESS.md) for details. If you are running any target server on the same host, you shoud change the target server port to avoid conflicts.
 
@@ -17,13 +17,13 @@ See [Network Address format](ADDRESS.md) for details. If you are running any tar
 #
 # Property: listeners 
 # Format: Comma|Space-separated list of addresses   
-# Default: 0.0.0.0:3389, [::]:3389 
+# Default: 0.0.0.0:3389 [::]:3389 
 #
 # See 'Network Address format' for details. If you are 
 # running any target server on the same host, you shoud 
 # change the target server port to avoid conflicts.
 
-;listeners = 0.0.0.0:3389, [::]:3389
+;listeners = 0.0.0.0:3389 [::]:3389
 
 # The NuoRDS info protocol availability.
 #

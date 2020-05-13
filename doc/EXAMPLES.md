@@ -1,8 +1,8 @@
 **NUORDS PROXY CONFIGURATION EXAMPLES**  [(?)](README.md)
 
-This document contains a web simple examples. For more options please see:
+This document contains a few simple examples. For more options please see:
 
-[How to configure NuoRDS Proxy.](CONFIG.md) 
+[NuoRDS Proxy configuration.](CONFIG.md) 
 
 **Two target servers with proxy on a third host**
 
