@@ -14,4 +14,4 @@ The proxy can also filter connections and cache a target server selection. Since
 
 [NuoRDS Proxy configuration.](CONFIG.md)
 
-[NuoRDS Proxy address format.](doc/ADDRESS.md)
+[NuoRDS Proxy address format.](ADDRESS.md)
