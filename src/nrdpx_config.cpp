@@ -38,8 +38,7 @@
 nrdpx_section_t::item_t nrdpx_section_t::m_empty;
 
 nrdpx_section_t::nrdpx_section_t(const xtl::string& sName):
-m_name(sName),
-m_data(NULL)
+m_name(sName), m_data(NULL)
 {
 }
 
