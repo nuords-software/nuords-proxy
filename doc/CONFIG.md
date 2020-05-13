@@ -223,7 +223,7 @@ A balancing unit properties should be placed in a **\[balancer.NAME\]** section.
   mem - server memory usage  
   cpu - server CPU usage  
   
-  The memory and CPU usage metrics reuire 'check_mode' 2 or 3.  
+  The memory and CPU usage metrics require 'check_mode' 2 or 3.  
   
 ------------------------------
 [< NuoRDS Proxy](README.md) 
