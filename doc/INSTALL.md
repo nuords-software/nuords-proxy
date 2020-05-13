@@ -8,7 +8,9 @@
   
    sudo sh nrdproxy_mac_install  
   
-3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.template".  
+3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.template". 
+  
+   Learn more about [NuoRDS Proxy configuration.](CONFIG.md) 
   
 4. Test your configuration with verbose output:  
   
@@ -53,7 +55,9 @@
 1. Unpack NuoRDS Proxy package into a directory.  
   
 4. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.template".  
-  
+   
+   Learn more about [NuoRDS Proxy configuration.](CONFIG.md)
+   
 5. Test your configuration with verbose output:  
   
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg  
