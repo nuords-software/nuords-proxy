@@ -3,9 +3,10 @@
 # 
 # Configuration file template.
 # 
-# Lines, which begin with the hash character "#" or 
-# the semicolon ";" will be ignored.
+# Lines, which begin with the hash character '#' or 
+# the semicolon ';' will be ignored.
 #
+# For fast deployment, see 'nrdproxyd.cfg.simple'.
 
 ################
 # Network Address format

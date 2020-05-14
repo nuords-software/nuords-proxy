@@ -2,10 +2,10 @@
 # 
 # Simple configuration example.
 # 
-# Lines, which begin with the hash character "#" or 
-# the semicolon ";" will be ignored.
+# Lines, which begin with the hash character '#' or 
+# the semicolon ';' will be ignored.
 #
-# See "nrdproxyd.cfg.template" for more options.
+# For advanced options, see 'nrdproxyd.cfg.sample'.
 
 [proxy]
 

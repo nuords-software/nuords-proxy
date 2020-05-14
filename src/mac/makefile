@@ -36,9 +36,9 @@ ship: proxy
 	-@if [ -d "$(SHIP_DIR)" ] ; then echo "Ship dir: "$(SHIP_DIR) ; fi
 	-@cp -p "$(BIN_OUT)" "$(SHIP_DIR)/"
 	-@perl -p -e 's/\r\n/\n/' "setup/com.nuords.nrdproxyd.plist" > "$(SHIP_DIR)/com.nuords.nrdproxyd.plist"
-	-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_mac_install" > "$(SHIP_DIR)/nrdproxy_mac_install"
-	-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_mac_uninstall" >  "$(SHIP_DIR)/nrdproxy_mac_uninstall"
-	-@perl -p -e 's/\r\n/\n/' "setup/nrdproxyctl" >  "$(SHIP_DIR)/nrdproxyctl"
+	-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_install" > "$(SHIP_DIR)/nrdproxy_install"
+	-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_uninstall" >  "$(SHIP_DIR)/nrdproxy_uninstall"
+	-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_service" >  "$(SHIP_DIR)/nrdproxy_service"
 	-@perl -p -e 's/\r\n/\n/' "../../doc/README.md" > "$(SHIP_DIR)/README.md"
 	-@perl -p -e 's/\r\n/\n/' "../../doc/INSTALL.md" > "$(SHIP_DIR)/INSTALL.md"
 	-@perl -p -e 's/\r\n/\n/' "../../doc/EXAMPLES.md" > "$(SHIP_DIR)/EXAMPLES.md"
@@ -49,6 +49,7 @@ ship: proxy
 
 pack:
 	-@echo "Packing..."
+	-@xattr -cr "$(SHIP_DIR)" 
 	-@if [ -f "$(PACK_ZIP)" ] ; then rm -f "$(PACK_ZIP)" ; fi
 	-@if [ ! -d "$(PACK_DIR)" ] ; then $(MKDIR_CMD) "$(PACK_DIR)" ; fi 
 	-@PWD=`pwd`; cd "$(SHIP_DIR)/" ; zip "$(PWD)/$(PACK_ZIP)" *
