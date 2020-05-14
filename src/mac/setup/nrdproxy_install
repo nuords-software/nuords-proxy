@@ -34,7 +34,7 @@ perm_set_rw()
   return $?
 }
 
-echo   "Installing NuoRDS Proxy Server..."
+echo   "Installing NuoRDS Proxy..."
 
 #Install binaries
 
@@ -79,7 +79,7 @@ perm_set_rw "/etc/nuords/nrdproxyd.cfg.simple"
 echo "Done."
 
 if [ ! -f "/etc/nuords/nrdproxyd.cfg" ] ; then
-   echo "Do not forget to create \"/etc/nuords/nrdproxyd.cfg\" 
+   echo "Do not forget to create \"/etc/nuords/nrdproxyd.cfg\""
    echo "Configuration sample 1: \"/etc/nuords/nrdproxyd.cfg.simple\""
    echo "Configuration sample 2: \"/etc/nuords/nrdproxyd.cfg.sample\"" 
 fi

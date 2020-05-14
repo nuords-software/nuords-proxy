@@ -2326,7 +2326,7 @@ void nrdpx_print_help()
     #ifndef NRD_WINDOWS
     "\t-dl\t\t- Lite daemon mode (launchd style).\n"
     "\t-dd\t\t- Daemonize, detach and store pid.\n"
-    "\t-pf <path>\t-  Path to a custom PID file ('-dd').\n"
+    "\t-pf <path>\t- Path to a custom PID file ('-dd').\n"
     #endif
     "\t-v\t\t- Print version information.\n"
     "\t-c\t\t- Print copyright information.\n"
