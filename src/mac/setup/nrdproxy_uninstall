@@ -1,0 +1,21 @@
+#!/bin/sh
+##
+# Uninstalls NuoRDS Proxy
+#
+##
+
+if [ $UID -ne 0 ] ; then
+   echo   "error: NOT super-user."
+   exit 1
+fi
+
+echo   "Uninstalling NuoRDS Proxy Server..."
+
+rm -f "/usr/local/bin/nrdproxy_service" > /dev/null 2>&1
+rm -f "/usr/local/bin/nrdproxyd"  > /dev/null 2>&1
+rm -f "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist"  > /dev/null 2>&1  
+rm -f /etc/nuords/nrdproxyd.cfg.sample  > /dev/null 2>&1
+rm -f /var/log/nrdproxyd.log  > /dev/null 2>&1  
+
+echo   "Done."
+exit 0

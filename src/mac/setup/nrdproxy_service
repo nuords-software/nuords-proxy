@@ -1,0 +1,41 @@
+#!/bin/sh
+##
+# Manages NuoRDS Proxy
+#
+##
+
+if [ $UID -ne 0 ] ; then
+   echo   "error: NOT super-user."
+   exit 1
+fi
+
+CMD="$1"
+OPT="$2"
+
+if [ "$OPT" = "" ] ; then OPT="-F" ; fi
+
+if [ "$CMD" = "start" ] ;  then
+
+   launchctl load $OPT "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist"
+
+elif [ "$CMD" = "stop" ] ;  then
+
+   launchctl unload $OPT "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist" > /dev/null 2>&1
+
+elif [ "$CMD" = "restart" ] ; then
+
+   launchctl unload $OPT "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist" > /dev/null 2>&1
+   launchctl load $OPT "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist"
+   
+elif [ "$CMD" = "state" ] ;  then
+
+   launchctl list | grep com.nuords.nrdproxyd
+
+else
+   echo   "error: Unknown command: $CMD"
+   echo   "usage: nrdproxy_service start/stop/state [-w]"
+   echo   "note:  Use -w option to store the state permanently"
+   exit 1 
+fi
+
+exit $?
