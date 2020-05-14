@@ -41,9 +41,13 @@ ship: nrdproxy
 	-@#-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_mac_install" > "$(SHIP_DIR)/nrdproxy_uni_install"
 	-@#-@perl -p -e 's/\r\n/\n/' "setup/nrdproxy_mac_uninstall" >  "$(SHIP_DIR)/nrdproxy_uni_uninstall"
 	-@#-@perl -p -e 's/\r\n/\n/' "setup/nrdproxyctl" >  "$(SHIP_DIR)/nrdproxyctl"
+	-@perl -p -e 's/\r\n/\n/' "../../doc/README.md" > "$(SHIP_DIR)/README.md"
 	-@perl -p -e 's/\r\n/\n/' "../../doc/INSTALL.md" > "$(SHIP_DIR)/INSTALL.md"
-	-@perl -p -e 's/\r\n/\n/' "../../README.md" > "$(SHIP_DIR)/README.md"
-	-@perl -p -e 's/\r\n/\n/' "../conf/nrdproxyd.cfg.template" > "$(SHIP_DIR)/nrdproxyd.cfg.template"
+	-@perl -p -e 's/\r\n/\n/' "../../doc/EXAMPLES.md" > "$(SHIP_DIR)/EXAMPLES.md"
+	-@perl -p -e 's/\r\n/\n/' "../../doc/CONFIG.md" > "$(SHIP_DIR)/CONFIG.md"
+	-@perl -p -e 's/\r\n/\n/' "../../doc/ADDRESS.md" > "$(SHIP_DIR)/ADDRESS.md"
+	-@perl -p -e 's/\r\n/\n/' "../conf/nrdproxyd.cfg.template" > "$(SHIP_DIR)/nrdproxyd.cfg.sample"
+	-@perl -p -e 's/\r\n/\n/' "../conf/nrdproxyd.cfg.template" > "$(SHIP_DIR)/nrdproxyd.cfg.simple"
 	-@PWD=`pwd`; cd "$(SHIP_DIR)/" ; zip "$(PWD)/$(SHIP_ZIP)" *
 	-@if [ -f "$(SHIP_ZIP)" ] ; then echo "Ship zip: "$(SHIP_ZIP) ; fi 
 

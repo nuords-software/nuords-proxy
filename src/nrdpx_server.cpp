@@ -110,7 +110,7 @@ nrdpx_route_t*    nrdpx_cache_t::find(const xtl::string& key)
     
     if(now > chktime){
         
-        chktime = now + 3600/*1 hour*/;//TODO: Checkup period must be configurable.
+        chktime = now + 3600/*1 hour*/;//TODO: Check period must be configurable.
         
         xtl::vector<xtl::string> keys;
         
@@ -568,8 +568,7 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
         }
         else if(!stricmp(ar,"-pf"))
         {
-            if(++i < argc && *argv[i] != '\0')
-                __pid_path = xtl::ssafe(argv[i]);
+            if(++i < argc && *argv[i] != '\0') __pid_path = xtl::ssafe(argv[i]);
         }
         #endif
     }
@@ -592,11 +591,11 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
     
     /*Load configuration*/
     if(!nrdpx_load_config()) {
-        return nrdpx_exit_proc(1);  //TODO: Not good for a daemon.
+        return nrdpx_fail_proc();
     }
     
     if(!nrdpx_socket_init()){
-        return nrdpx_exit_proc(1);  //TODO: Not good for a daemon.
+        return nrdpx_fail_proc();  
     }
     
     nrdpx_log(LOG_INFO,"Creating listeners...");
@@ -614,7 +613,7 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
     
     if(__proxy->listeners.empty()){
         nrdpx_log(LOG_INFO,"No active listeners found.");
-        return nrdpx_exit_proc(1);  //TODO: Not good for a daemon.
+        return nrdpx_fail_proc(); 
     }
     
     nrdnb_client_t::register_callback(nrdpx_info_callback,NULL);
@@ -634,6 +633,9 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
     
     return  nrdpx_main_proc();
 }
+
+
+
 
 int  nrdpx_main_proc()
 {
@@ -671,7 +673,7 @@ int  nrdpx_main_proc()
             {
                 nrdpx_log(LOG_ERR,"Socket selector failed, error=%s",
                 xtl::inet::last_error_string().c_str());
-                return nrdpx_exit_proc(1); //TODO: Not good for daemon.
+                return nrdpx_fail_proc(); 
             }
         }
         
@@ -855,7 +857,7 @@ int  nrdpx_main_proc()
             
         }
         
-        //Simple balancing
+        //Thread balancing
 
         if(slp < 25) slp++;
         
@@ -1839,8 +1841,10 @@ xtl::string  nrdpx_real_path(const xtl::string& s)
 
 void  nrdpx_log_init()
 {
-	  //Store log mode and extend it temporarily
+	//Extend log mode during initialization
+    
     int lou = __log_out; 
+
     __log_out |= NRDPX_LOG_OUT_SLOG | ((!__daemon_mode) ? NRDPX_LOG_OUT_CONS : 0);
 
     //Open log file if it is configured
@@ -1852,8 +1856,7 @@ void  nrdpx_log_init()
             __log_fdd = ::fopen(__log_path.c_str(),__log_app ? "a" : "w" );
         }
     }
-    
-    //Write initial log message
+
     nrdpx_log(LOG_INFO,nrdpx_version_info().c_str());
 
     if(lou & NRDPX_LOG_OUT_FILE)
@@ -1861,6 +1864,7 @@ void  nrdpx_log_init()
         if(!__log_fdd)
         {
             lou &= ~(NRDPX_LOG_OUT_FILE);
+
             nrdpx_log(LOG_WARN,"Could not open log file: %s",__log_path.c_str());
             
             if(!lou)
@@ -1868,12 +1872,12 @@ void  nrdpx_log_init()
                 if(__daemon_mode)
                 {
                     lou = NRDPX_LOG_OUT_SLOG;
-                    nrdpx_log(LOG_WARN,"Demon log redirected to syslog");
+                    nrdpx_log(LOG_WARN,"Demon log has been redirected to syslog");
                 }
                 else
                 {
                     lou = NRDPX_LOG_OUT_CONS;
-                    nrdpx_log(LOG_WARN,"Log redirected to console");
+                    nrdpx_log(LOG_WARN,"Log has been redirected to console");
                 }
             }
         }
@@ -1883,8 +1887,7 @@ void  nrdpx_log_init()
         }
     }
     
-    //Restore adjusted log mode
-    __log_out = lou;
+    __log_out = lou; //Restore log mode
     
     nrdpx_log(LOG_INFO,"Config file: %s",__cfg_path.c_str());
     
@@ -2091,24 +2094,17 @@ int nrdpx_exit_proc(int err)
     nrdnb_client_t::stop_control_timer();
     nrdnb_client_t::stop_info_tracker();
     
-    if(__proxy != NULL) delete __proxy;
-    __proxy = NULL;
-    
-    __log_out |= NRDPX_LOG_OUT_SLOG;
-
-    if(!__terminated && 
-    	__daemon_mode == NRDPX_DAEMON_MODE_LITE)
-    {
-        nrdpx_log(LOG_WARN,"All services stopped");
-  
-        while(!__terminated){
-        	 xtl::sleep(100);
-        }
+    if(__proxy != NULL) {
+        delete __proxy;
+        __proxy = NULL;
     }
     
+    //Write exit messages to syslog.
+    __log_out |= NRDPX_LOG_OUT_SLOG;
+
     nrdpx_discard_pid();
     
-    nrdpx_log(LOG_INFO,"Safe exit");
+    nrdpx_log(LOG_INFO,"The process exited gracefully");
     
     if(__log_fdd != NULL) {
     	 ::fclose(__log_fdd);
@@ -2120,7 +2116,23 @@ int nrdpx_exit_proc(int err)
     return err;
 }
 
-void  nrdpx_terminate_proc()
+int  nrdpx_fail_proc()
+{
+    //Write failure messages to syslog and console.
+
+    __log_out |= NRDPX_LOG_OUT_SLOG | ((!__daemon_mode) ? NRDPX_LOG_OUT_CONS : 0);
+    
+    nrdpx_log(LOG_ERR,"The proxy is inactive due to a critical failure");
+    nrdpx_log(LOG_ERR,"Fix all errors above and restart this service");
+    
+    while(!__terminated){
+        xtl::sleep(500);
+    }
+
+    return nrdpx_exit_proc(1);
+}
+
+void  nrdpx_term_proc()
 {
     if(!__terminated)
     {
@@ -2128,12 +2140,11 @@ void  nrdpx_terminate_proc()
         __terminated=true;
         
         #ifndef NRD_WINDOWS
-        ::alarm(15); //15 seconds exit timeout
+        ::alarm(15); //15 seconds for graceful exit
         #endif
         
         if(__proxy != NULL)
         {
-            //Close listeners
             for(nrdpx_listeners_t::iterator i = __proxy->listeners.begin();
                 i != __proxy->listeners.end();i++){
                 nrdpx_socket_close((*i)->sock);
@@ -2155,33 +2166,36 @@ void  nrdpx_terminate_proc()
          case CTRL_CLOSE_EVENT:
          case CTRL_LOGOFF_EVENT:
          case CTRL_SHUTDOWN_EVENT:
-         nrdpx_terminate_proc();
+         nrdpx_term_proc();
          break;
       }
       return TRUE;
    }
 #else
-  static void nrdpx_signal_handler (int signum)
+  static void nrdpx_signal_handler(int signum)
   {
      switch(signum)
      { 
         case SIGTERM:
         case SIGINT:
         case SIGHUP:
-            nrdpx_terminate_proc();
+            nrdpx_term_proc();
         break;
         case SIGALRM:
               if(__terminated)
               {
-                 //HotFix: when polling is hanged on connection
-                 //then process could not be end safely untill
-                 //socket timeout exceeded.
+                 //The process could not exit gracefully
+
                  nrdpx_discard_pid();
-                 __log_out |= NRDPX_LOG_OUT_SLOG;
-                 nrdpx_log(LOG_INFO,"Forced exit");
-                 _exit(0);    
+               
+                 __log_out |= NRDPX_LOG_OUT_SLOG; //Write to syslog.
+                 
+                 nrdpx_log(LOG_WARN,"The process exited forcefully");
+
+                 ::_exit(0); //TODO: Should it be 1?
+
               }else{
-                 //Abort address checker
+                 //Just abort the address checker
                  nrdpx_check_address(xtl::snull, 0);
               }
         break;
@@ -2199,37 +2213,41 @@ void   nrdpx_discard_stdio()
     #endif
 }
 
-#define nrdpx_force_exit() {nrdpx_log(LOG_INFO,"Forced exit"); ::exit(1); }
+#define nrdpx_daemon_fail() {nrdpx_log(LOG_WARN,"The daemon initialization failed"); ::exit(1); }
 
 void   nrdpx_create_daemon()
 {
-    if(!__daemon_mode) return;
+    if(__daemon_mode == NRDPX_DAEMON_MODE_NONE) return;
     
     #ifndef NRD_WINDOWS
     
-        //Close standard IO streams
-        nrdpx_discard_stdio();
+        nrdpx_discard_stdio();  //Close IO streams
         
-        //Store log mode and extend it temporarily
+        //Write daemon initialization into syslog.
         int lou = __log_out; __log_out |= NRDPX_LOG_OUT_SLOG;
-        
+
         if(__daemon_mode == NRDPX_DAEMON_MODE_LITE)
         {
-            ::umask(S_IWGRP | S_IWOTH); ::chdir("/");
-            nrdpx_store_pid(); __log_out = lou;
-            return;
+            //Lite daemon mode
+
+            ::umask(S_IWGRP | S_IWOTH); //Change permissions
+
+            ::chdir("/"); //Change the current directory
+            
+            nrdpx_store_pid(); //Store pid 
+            
+            __log_out = lou; //Restore log mode
+            
+            return; //Do not detach the process.
         }
-        else if(__daemon_mode != NRDPX_DAEMON_MODE_FULL)
-        {
-            nrdpx_log(LOG_WARN,"Unknown daemon mode specified");
-            nrdpx_force_exit();
-        }
+
+        //Full daemon mode
         
         pid_t pid = nrdpx_get_pid();
         
         if(pid != -1){
-            nrdpx_log(LOG_ERR,"NuoRDS Proxy daemon already launched, pid=%d",pid);
-            nrdpx_force_exit();
+            nrdpx_log(LOG_ERR,"The daemon is already launched, pid=%d",pid);
+            nrdpx_daemon_fail();
         }
         
         sync();//syncronize IO
@@ -2239,33 +2257,30 @@ void   nrdpx_create_daemon()
         if (pid < 0)
         {
             nrdpx_log(LOG_ERR,"Could not fork the process");
-            nrdpx_force_exit();
+            nrdpx_daemon_fail();
         }
         else if (pid > 0)
         {
-            //The parent process, sleep and exit
-            xtl::sleep(250); ::exit(0);
+            //The parent process.
+            xtl::sleep(250); ::exit(0); 
         }
         
         //The child process
-        //Change the file mode mask
-        ::umask(S_IWGRP | S_IWOTH);
         
-        //Create a new SID for the child process
+        ::umask(S_IWGRP | S_IWOTH); //Change permissions
+        
+        //Create a new SID
         if (::setsid() < 0) {
             nrdpx_log(LOG_ERR,"Could not create daemon session");
-            nrdpx_force_exit();
+            nrdpx_daemon_fail();
         }
         
-        //Change the current directory
-        ::chdir("/");
+        ::chdir("/"); //Change the current directory
         
-        //Store PID
-        if(!nrdpx_store_pid()) nrdpx_force_exit();
-        
-        //Restore configured log mode but exclude
-        //stdout because daemon should not use it.
-        __log_out = lou;
+        //Store pid
+        if(!nrdpx_store_pid()) nrdpx_daemon_fail();
+
+        __log_out = lou; //Restore log mode.
    
     #endif
 }

@@ -100,10 +100,13 @@
 //COMMON FUNCTIONS
 
 //Misc
+
 static int         nrdpx_main_proc();
+static int         nrdpx_fail_proc();
+static void        nrdpx_term_proc();
+static int         nrdpx_exit_proc(int err);
 static void        nrdpx_print_help();
 static xtl::string nrdpx_real_path(const xtl::string& s);
-static int         nrdpx_exit_proc(int err);
 static void        nrdpx_check_arguments();
 static void        nrdpx_create_daemon();
 static bool        nrdpx_load_config();

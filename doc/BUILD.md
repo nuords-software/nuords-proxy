@@ -56,7 +56,7 @@
   
    ./nrdproxyd -h  
   
-3. Create nrdproxyd.cfg using nrdproxyd.cfg.simple or nrdproxyd.cfg.template.  
+3. Create nrdproxyd.cfg using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
   
 4. Adjust system firewall if necessary (default port: 3389(TCP)).  
   
