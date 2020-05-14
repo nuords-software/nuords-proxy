@@ -208,7 +208,6 @@ namespace xtl
             
             if(pos == xtl::npos){
                 host = xtl::strim(addr);
-                port = 0;
             }else{
                 host = xtl::strim(addr.substr(0,pos));
                 port = xtl::stoi(addr.substr(pos+1));

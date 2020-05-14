@@ -45,16 +45,22 @@
 /********************************************************************/
 //GLOBAL VARIABLES
 
-nrdpx_proxy_t*  __proxy=NULL;
-int             __log_out=0;
-int             __log_lvl=LOG_INFO;
-bool            __log_app=false;
-FILE*           __log_fdd=NULL;
-xtl::string     __pid_path=NRDPX_PID_PATH;
-xtl::string     __cfg_path=NRDPX_CFG_PATH;
-xtl::string     __log_path=NRDPX_LOG_PATH;
-bool            __terminated=false;
-int             __daemon_mode=NRDPX_DAEMON_MODE_NONE;
+nrdpx_proxy_t*  __proxy = NULL;
+int             __log_out = 0;
+int             __log_lvl = LOG_INFO;
+bool            __log_app = false;
+FILE*           __log_fdd = NULL;
+xtl::string     __pid_path = NRDPX_PID_PATH;
+xtl::string     __cfg_path = NRDPX_CFG_PATH;
+xtl::string     __log_path = NRDPX_LOG_PATH;
+bool            __detached = false;
+bool            __terminated = false;
+int             __daemon_mode = NRDPX_DAEMON_MODE_NONE;
+
+#ifndef NRD_WINDOWS
+pid_t           __current_pid = NRD_NOPID;
+#endif
+
 
 /********************************************************************/
 
@@ -486,7 +492,7 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
 /********************************************************************/
 //IMPLEMENTATION
 
-#if defined (NRD_WINDOWS)
+#ifdef NRD_WINDOWS
     int main (int argc, char * const argv[]){
 #else
     int     __argc = 0;      /* count of cmd line args */
@@ -500,6 +506,11 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
     __log_lvl = LOG_DEBUG;
     __log_out = NRDPX_LOG_OUT_CONS;
     #endif
+
+    #ifndef NRD_WINDOWS
+      __current_pid = ::getpid();
+    #endif
+      
     
     /*Parse command line*/
     for (int i=1 ;i < argc ; i++)
@@ -572,12 +583,17 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
         }
         #endif
     }
+
+    //Normalize patches
+    __cfg_path = nrdpx_real_path(__cfg_path);
+    __log_path = nrdpx_real_path(__log_path);
+    __pid_path = nrdpx_real_path(__pid_path);
     
-    nrdpx_check_arguments();
+    //Demonize & Initialize
     nrdpx_create_daemon();
     nrdpx_log_init();
     
-    /*Set handlers*/
+    //Signal handlers
     #ifndef NRD_WINDOWS
     signal(SIGTERM, nrdpx_signal_handler);
     signal(SIGINT,  nrdpx_signal_handler);
@@ -587,9 +603,10 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
         SetConsoleCtrlHandler( (PHANDLER_ROUTINE)nrdpx_signal_handler,TRUE);
     #endif
     
+    //Create object
     __proxy = new nrdpx_proxy_t();
     
-    /*Load configuration*/
+    //Load configuration
     if(!nrdpx_load_config()) {
         return nrdpx_fail_proc();
     }
@@ -619,7 +636,7 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
     nrdnb_client_t::register_callback(nrdpx_info_callback,NULL);
     
     //Always start control timer
-    nrdnb_client_t::start_control_timer(1);//1 second control timer
+    nrdnb_client_t::start_control_timer(1);//1 second period
     
     if(__proxy->info_enabled){
         
@@ -633,9 +650,6 @@ NRD_SOCKET nrdpx_proxy_t::fill_fds(fd_set* read_set,fd_set* write_set)
     
     return  nrdpx_main_proc();
 }
-
-
-
 
 int  nrdpx_main_proc()
 {
@@ -1227,9 +1241,9 @@ bool   nrdpx_load_config()
        
         nrdpx_log(LOG_DEBUG,"  redundant = %d", s->redundant);
         
-        if(s->host.empty())
+        if(s->host.empty() || !s->port)
         {
-            nrdpx_log(LOG_WARN,"%s: Host is not valid, ignored",s->name.c_str());
+            nrdpx_log(LOG_ERR,"%s: Address is not valid, ignored",s->name.c_str());
             delete s; continue;
         }
      
@@ -1540,16 +1554,16 @@ nrdpx_channel_t* nrdpx_channel_create(NRD_SOCKET src_sock,time_t now,nrdpx_serve
     return channel;
 }
 
-//Internal routine, used by nrdpx_info_callback
-bool  nrdpx_check_address(const xtl::string& host, int port)
+bool  nrdpx_check_server(const xtl::string& host, int port, bool active/*=false*/)
 {
     
     static xtl::mutex _check_mutex;
     static NRD_SOCKET _check_socket = NRD_NOSOCK;
     
-    //Abort previous address check
     {
         xtl::locker _l(&_check_mutex);
+
+         //Abort previous check
         if(_check_socket != NRD_NOSOCK){
             nrdpx_log(LOG_DEBUG,"Checker: Last check has timed out");
             nrdpx_socket_close(_check_socket);
@@ -1560,12 +1574,13 @@ bool  nrdpx_check_address(const xtl::string& host, int port)
         return false;
     }
     
-    nrdpx_log(LOG_DEBUG,"Checker: Checking a host, address=%s:%d",host.c_str(), port);
+    nrdpx_log(LOG_DEBUG,"Checker: Connecting to server, address=%s:%d",host.c_str(), port);
     
     xtl::inet::addr_t addr;
     
     if (!xtl::inet::host_to_addr(host,&addr)){
-        nrdpx_log(LOG_ERR,
+        //Report error for active server only
+        nrdpx_log(active ? LOG_ERR : LOG_DEBUG,
         "Checker: Could not interpret host, address=%s:%d, error=%s",
         host.c_str(), port, xtl::inet::last_error_string().c_str());
         return false;
@@ -1589,7 +1604,8 @@ bool  nrdpx_check_address(const xtl::string& host, int port)
     bool ret = !nrdpx_socket_connect(_check_socket,&addr);
     
     if(!ret){
-        nrdpx_log(LOG_DEBUG,
+        //Report error for active server only
+        nrdpx_log(active ? LOG_ERR : LOG_DEBUG,
         "Checker: Could not connect, address=%s:%d, error=%s",
         host.c_str(), port, xtl::inet::last_error_string().c_str());
     }
@@ -1772,7 +1788,7 @@ NRD_BOOL nrdpx_info_callback(NRD_UINT uEvent,NRD_VOID* pData,NRD_VOID* pParam)
                         ::alarm(__proxy->conn_timeout); //connection timeout
                         #endif
                         
-                        if(nrdpx_check_address((*s)->host, (*s)->port)){
+                        if(nrdpx_check_server((*s)->host, (*s)->port, active)){
                             nrdpx_server_activate(*s);
                         }else{
                             nrdpx_server_deactivate(*s);
@@ -1814,18 +1830,19 @@ NRD_BOOL nrdpx_info_callback(NRD_UINT uEvent,NRD_VOID* pData,NRD_VOID* pParam)
 xtl::string  nrdpx_real_path(const xtl::string& s)
 {
 	 #ifdef NRD_WINDOWS
-	    //TODO: implement if time
-	    return s;
-	 #else   
+	    return s;  //TODO: implement if time
+	 #else
+
       if(s.empty() || s[0] == '/') return s;
       	
-      xtl::string ret; char path[PATH_MAX]; 
+      xtl::string ret; char path[PATH_MAX];
+ 
       path[sizeof(path) -1] = '\0';
       
-      if(NULL != getcwd(path, sizeof(path) -1)){
-        ret = xtl::string(path) + "/" + s;
+      if(NULL != ::getcwd(path, sizeof(path) -1)){
+          ret = xtl::string(path) + "/" + s;
       }else{
-      	ret = s; 
+      	  ret = s; 
       }
       
       //NOTE: realpath extracts path only if
@@ -1987,7 +2004,7 @@ void    nrdpx_log_write(int type, const char *msg, ...)
     #ifndef NRD_WINDOWS
     if(__log_out & NRDPX_LOG_OUT_SLOG)
     {
-        syslog(type,"[%s]: %s",sid,s_text);
+        syslog(type,"(%d)[%s]: %s",(int)__current_pid,sid,s_text);
     }
     #endif
     
@@ -2019,11 +2036,11 @@ void    nrdpx_log_write(int type, const char *msg, ...)
     }
 }
 
-void nrdpx_discard_pid()
+void nrdpx_release_pid()
 {
     #ifndef NRD_WINDOWS
-    //Delete daemon PID file
-    if(__daemon_mode && !__pid_path.empty())
+    //Only detached process can release pid.
+    if(__detached && !__pid_path.empty())
     {
         ::unlink(__pid_path.c_str());
         __pid_path.clear();
@@ -2031,17 +2048,18 @@ void nrdpx_discard_pid()
     #endif	
 }
 
-bool nrdpx_store_pid()
+bool nrdpx_retain_pid()
 {
     bool ret = false;
+
     #ifndef NRD_WINDOWS
+    
     if(!__pid_path.empty())
     {
-        pid_t pid = ::getpid();
         FILE * pfd = ::fopen(__pid_path.c_str(),"w");
         if(pfd != NULL)
         {
-           ret = (0 < fprintf(pfd,"%d",pid));
+           ret = (0 < fprintf(pfd,"%d",(int)__current_pid));
            ::fclose(pfd);
         }
     }
@@ -2051,15 +2069,16 @@ bool nrdpx_store_pid()
     }
     
     #endif
+    
     return ret;
 }
 
-pid_t nrdpx_get_pid()
+pid_t nrdpx_find_pid()
 {
-    pid_t pid = -1;
-
     #ifndef NRD_WINDOWS
     
+    pid_t pid = NRD_NOPID;
+
     if(!__pid_path.empty())
     {
         FILE * pfd=fopen(__pid_path.c_str(),"rb");
@@ -2076,17 +2095,21 @@ pid_t nrdpx_get_pid()
             if( fread(fbuf, siz, 1,pfd) == 1)
             {
                 fbuf[siz] = '\0';
-                pid=atoi(fbuf);
+                pid = (pid_t)atoi(fbuf);
             }
         }
+
         fclose(pfd);
     }
-    if(kill(pid,0) == -1 && errno == ESRCH ) pid = -1;
+
+    if(pid != NRD_NOPID && ::kill(pid,0) == -1 
+        && errno == ESRCH ) pid = NRD_NOPID;
+
+    return pid;
 
     #endif
     
-    return pid;
-    
+    return 0;
 }
 
 int nrdpx_exit_proc(int err)
@@ -2102,7 +2125,7 @@ int nrdpx_exit_proc(int err)
     //Write exit messages to syslog.
     __log_out |= NRDPX_LOG_OUT_SLOG;
 
-    nrdpx_discard_pid();
+    nrdpx_release_pid();
     
     nrdpx_log(LOG_INFO,"The process exited gracefully");
     
@@ -2123,7 +2146,7 @@ int  nrdpx_fail_proc()
     __log_out |= NRDPX_LOG_OUT_SLOG | ((!__daemon_mode) ? NRDPX_LOG_OUT_CONS : 0);
     
     nrdpx_log(LOG_ERR,"The proxy is inactive due to a critical failure");
-    nrdpx_log(LOG_ERR,"Fix all errors above and restart this service");
+    nrdpx_log(LOG_ERR,"Fix all logged errors and restart this service");
     
     while(!__terminated){
         xtl::sleep(500);
@@ -2151,8 +2174,8 @@ void  nrdpx_term_proc()
             }
         }
         
-        //Abort address checker
-        nrdpx_check_address(xtl::snull,0);
+        //Abort the server checker
+        nrdpx_check_server(xtl::snull,0);
     }
 }
 
@@ -2186,7 +2209,7 @@ void  nrdpx_term_proc()
               {
                  //The process could not exit gracefully
 
-                 nrdpx_discard_pid();
+                 nrdpx_release_pid();
                
                  __log_out |= NRDPX_LOG_OUT_SLOG; //Write to syslog.
                  
@@ -2195,8 +2218,8 @@ void  nrdpx_term_proc()
                  ::_exit(0); //TODO: Should it be 1?
 
               }else{
-                 //Just abort the address checker
-                 nrdpx_check_address(xtl::snull, 0);
+                 //Abort the server checker
+                 nrdpx_check_server(xtl::snull, 0);
               }
         break;
      }
@@ -2213,7 +2236,7 @@ void   nrdpx_discard_stdio()
     #endif
 }
 
-#define nrdpx_daemon_fail() {nrdpx_log(LOG_WARN,"The daemon initialization failed"); ::exit(1); }
+#define nrdpx_daemon_fail() {nrdpx_log(LOG_WARN,"The process exited forcefully"); ::exit(1); }
 
 void   nrdpx_create_daemon()
 {
@@ -2221,7 +2244,7 @@ void   nrdpx_create_daemon()
     
     #ifndef NRD_WINDOWS
     
-        nrdpx_discard_stdio();  //Close IO streams
+        nrdpx_discard_stdio();  //Close standard IO
         
         //Write daemon initialization into syslog.
         int lou = __log_out; __log_out |= NRDPX_LOG_OUT_SLOG;
@@ -2229,27 +2252,25 @@ void   nrdpx_create_daemon()
         if(__daemon_mode == NRDPX_DAEMON_MODE_LITE)
         {
             //Lite daemon mode
-
+            
             ::umask(S_IWGRP | S_IWOTH); //Change permissions
 
-            ::chdir("/"); //Change the current directory
-            
-            nrdpx_store_pid(); //Store pid 
-            
+            ::chdir("/"); //Change current directory
+
             __log_out = lou; //Restore log mode
             
             return; //Do not detach the process.
         }
 
         //Full daemon mode
-        
-        pid_t pid = nrdpx_get_pid();
-        
-        if(pid != -1){
+
+        pid_t pid = nrdpx_find_pid();
+
+        if(pid != NRD_NOPID){
             nrdpx_log(LOG_ERR,"The daemon is already launched, pid=%d",pid);
             nrdpx_daemon_fail();
         }
-        
+
         sync();//syncronize IO
         
         pid = ::fork();
@@ -2266,6 +2287,7 @@ void   nrdpx_create_daemon()
         }
         
         //The child process
+        __current_pid = ::getpid();
         
         ::umask(S_IWGRP | S_IWOTH); //Change permissions
         
@@ -2275,10 +2297,12 @@ void   nrdpx_create_daemon()
             nrdpx_daemon_fail();
         }
         
-        ::chdir("/"); //Change the current directory
+        ::chdir("/"); //Change current directory
         
         //Store pid
-        if(!nrdpx_store_pid()) nrdpx_daemon_fail();
+        if(!nrdpx_retain_pid()) nrdpx_daemon_fail();
+       
+        __detached = true; //Mark as detached
 
         __log_out = lou; //Restore log mode.
    
@@ -2300,9 +2324,9 @@ void nrdpx_print_help()
     "\t-lv\t\t- Verbose log mode (same as -ll 7).\n"
     "\t-ll <level>\t- A custom log level (0...7).\n"
     #ifndef NRD_WINDOWS
-    "\t-dl\t\t- A lite daemon mode (useful for OSX).\n"
-    "\t-dd\t\t- Daemonize and detach (useful for Linux).\n"
-    "\t-pf <path>\t- Path to aPID file ('-dd' or '-dl' is required).\n"
+    "\t-dl\t\t- Lite daemon mode (launchd style).\n"
+    "\t-dd\t\t- Daemonize, detach and store pid.\n"
+    "\t-pf <path>\t-  Path to a custom PID file ('-dd').\n"
     #endif
     "\t-v\t\t- Print version information.\n"
     "\t-c\t\t- Print copyright information.\n"
@@ -2310,7 +2334,7 @@ void nrdpx_print_help()
     "\t-h\t\t- Print this help message.\n"
     #ifndef NRD_WINDOWS
     "\nNOTES:\n\n"
-    "\t- Any console output will be canceled by '-dl' or '-dd' option.\n"
+    "\t- Console output will be canceled by '-dl' or '-dd'.\n"
     #endif
     "\nEXAMPLES:\n\n"
     "Console mode :\n"

@@ -8,9 +8,25 @@
   
    cd src/mac  
   
-3. Make the product with a shipping package  
+3. Make the product and create a shipment: 
   
-   make ship  
+   make ship
+  
+4. If you want to pack the shipment:  
+  
+   make pack  
+  
+5. Additional build variables.  
+  
+   - BLD_DEST - An output folder name.  
+   - BLD_OPTS - Advanced build options.  
+   - BLD_CONF - The build config (debug/release).  
+  
+   Examples:  
+  
+   make BLD_DEST=x86-64 BLD_OPTS="-march=x86-64" ship  
+  
+   make BLD_CONF=debug ship
   
 **Linux:**  
   
@@ -20,9 +36,25 @@
   
    cd src/linux  
   
-3. Make the product with a shipping package  
+3. Make the product and create a shipment: 
   
-   make ship  
+   make ship
+  
+4. If you want to pack the shipment:  
+  
+   make pack  
+  
+5. Additional build variables.  
+  
+   - BLD_DEST - An output folder name.  
+   - BLD_OPTS - Advanced build options.  
+   - BLD_CONF - The build config (debug/release).  
+  
+   Examples:  
+  
+   make BLD_DEST="x86-64" BLD_OPTS="-march=x86-64" ship  
+  
+   make BLD_CONF="debug" ship  
   
 **Unix:**  
   
@@ -32,9 +64,25 @@
   
    cd src/unix  
   
-3. Make the product with a shipping package  
+3. Make the product and create a shipment: 
   
-   make ship  
+   make ship
+  
+4. If you want to pack the shipment:  
+  
+   make pack  
+  
+5. Additional build variables.  
+  
+   - BLD_DEST - An output folder name.  
+   - BLD_OPTS - Advanced build options.  
+   - BLD_CONF - The build config (debug/release).  
+  
+   Examples:  
+  
+   make BLD_DEST="x86-64" BLD_OPTS="-march=x86-64" ship  
+  
+   make BLD_CONF="debug" ship 
   
 **Windows:**  
   

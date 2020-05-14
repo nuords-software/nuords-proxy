@@ -107,7 +107,6 @@ static void        nrdpx_term_proc();
 static int         nrdpx_exit_proc(int err);
 static void        nrdpx_print_help();
 static xtl::string nrdpx_real_path(const xtl::string& s);
-static void        nrdpx_check_arguments();
 static void        nrdpx_create_daemon();
 static bool        nrdpx_load_config();
 static xtl::string nrdpx_version_info();
@@ -353,6 +352,7 @@ class nrdpx_proxy_t
 //PROXY FUNCTIONS
 //TODO: Move these functions to appropriated objects
 
+static bool  nrdpx_check_server(const xtl::string& host, int port, bool active=false);
 static nrdpx_server_t *  nrdpx_select_server(nrdpx_balancer_t * bal, nrdpx_client_t* cln, nrdpx_servers_t *svrs);
 static nrdpx_channel_t*  nrdpx_channel_create(NRD_SOCKET src_sock,time_t now,nrdpx_server_t *nosvr=NULL);
 static void        nrdpx_channel_delete(nrdpx_channel_t* chan);
