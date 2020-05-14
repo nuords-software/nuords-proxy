@@ -26,7 +26,7 @@
   
    make BLD_DEST=x86-64 BLD_OPTS="-march=x86-64" ship  
   
-   make BLD_CONF="debug" ship
+   make BLD_CONF="debug" ship  
   
 **Linux:**  
   
@@ -82,7 +82,7 @@
   
    make BLD_DEST="x86-64" BLD_OPTS="-march=x86-64" ship  
   
-   make BLD_CONF="debug" ship 
+   make BLD_CONF="debug" ship  
   
 **Windows:**  
   

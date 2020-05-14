@@ -47,7 +47,7 @@ ship: proxy
 	-@perl -p -e 's/\r\n/\n/' "../conf/nrdproxyd.cfg.sample" > "$(SHIP_DIR)/nrdproxyd.cfg.sample"
 	-@perl -p -e 's/\r\n/\n/' "../conf/nrdproxyd.cfg.simple" > "$(SHIP_DIR)/nrdproxyd.cfg.simple"
 
-pack: ship
+pack:
 	-@echo "Packing..."
 	-@if [ -f "$(PACK_ZIP)" ] ; then rm -f "$(PACK_ZIP)" ; fi
 	-@if [ ! -d "$(PACK_DIR)" ] ; then $(MKDIR_CMD) "$(PACK_DIR)" ; fi 
