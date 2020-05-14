@@ -11,8 +11,6 @@ fi
 
 if [ ! -f "./nrdproxy_service" ] || \
    [ ! -f "./com.nuords.nrdproxyd.plist" ] || \
-   [ ! -f "./nrdproxyd.cfg.sample" ] || \
-   [ ! -f "./nrdproxyd.cfg.simple" ] || \
    [ ! -f "./nrdproxyd" ] ; then
    echo   "fault: Source directory does not contain a package."
    exit 1
@@ -58,30 +56,20 @@ cp "./com.nuords.nrdproxyd.plist" "/Library/LaunchDaemons/"
 if [ "$?" != "0" ] ; then
    echo   "fault: Could not configure daemon."
    exit 1
-fi 
+fi
+ 
 perm_set_rw "/Library/LaunchDaemons/com.nuords.nrdproxyd.plist"
 
-#Install config sample
+#Prepare config directory
 
 if [ ! -d "/etc/nuords" ] ; then mkdir -p "/etc/nuords" ; fi
-
-cp "./nrdproxyd.cfg.sample" "/etc/nuords/"
-cp "./nrdproxyd.cfg.simple" "/etc/nuords/"
-
-if [ "$?" != "0" ] ; then
-   echo "fault: Could not copy configuration samples."
-   exit 1
-fi 
-
-perm_set_rw "/etc/nuords/nrdproxyd.cfg.sample"
-perm_set_rw "/etc/nuords/nrdproxyd.cfg.simple"
 
 echo "Done."
 
 if [ ! -f "/etc/nuords/nrdproxyd.cfg" ] ; then
    echo "Do not forget to create \"/etc/nuords/nrdproxyd.cfg\""
-   echo "Configuration sample 1: \"/etc/nuords/nrdproxyd.cfg.simple\""
-   echo "Configuration sample 2: \"/etc/nuords/nrdproxyd.cfg.sample\"" 
+   echo "Configuration sample 1: \"nrdproxyd.cfg.simple\""
+   echo "Configuration sample 2: \"nrdproxyd.cfg.sample\"" 
 fi
 
 exit 0
