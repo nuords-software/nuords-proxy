@@ -10,7 +10,7 @@
   
 3. Make the product and create a shipment: 
   
-   make ship
+   make ship  
   
 4. If you want to pack the shipment:  
   
@@ -66,7 +66,7 @@
   
 3. Make the product and create a shipment: 
   
-   make ship
+   make ship  
   
 4. If you want to pack the shipment:  
   
