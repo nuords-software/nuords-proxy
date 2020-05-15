@@ -6,7 +6,9 @@
   
 2. Open Terminal app and run setup script:  
   
+   ```
    sudo sh nrdproxy_install  
+   ```
   
 3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample". 
   
@@ -14,15 +16,21 @@
   
 4. Test your configuration with verbose output:  
   
+   ```
    /usr/local/bin/nrdproxyd -lc -lv -cf nrdproxyd.cfg  
+   ```
   
 5. Copy "nrdproxyd.cfg" to "/etc/nuords/" directory:  
   
+   ```
    sudo cp ./nrdproxyd.cfg /etc/nuords/nrdproxyd.cfg  
+   ```
   
 6. Start NuoRDS Proxy daemon:  
   
-   sudo nrdproxy_service start -w  
+   ```
+   sudo nrdproxy_service start -w
+   ```  
   
 7. Check log messages in /var/log/nrdproxyd.log  
   
@@ -30,23 +38,33 @@
   
 1. Stop NuoRDS Proxy daemon daemon:  
   
-   sudo nrdproxy_service stop -w  
+   ```
+   sudo nrdproxy_service stop -w
+   ```  
   
 2. Launch proxy with verbose output:  
   
+   ```
    /usr/local/bin/nrdproxyd -lc -lv  
+   ```
   
 3. See additional options:  
   
+   ```
    /usr/local/bin/nrdproxyd -h  
+   ```
   
 4. To change daemon startup rules, edit plist file:  
   
+   ```
    /Library/LaunchDaemons/com.nuords.nrdproxyd.plist  
+   ```
   
 5. After solving the problem, start proxy daemon:  
   
-   sudo nrdproxy_service start -w  
+   ```
+   sudo nrdproxy_service start -w
+   ```  
   
 **Other OS Installation:**  
   
@@ -60,7 +78,9 @@
    
 5. Test your configuration with verbose output:  
   
+   ```
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg  
+   ```
   
 6. Create the daemon/service config to launch "nrdproxyd" properly at system startup.  
   
