@@ -31,7 +31,7 @@
    Backward compatibility (macOS 10.12+):  
    
    ```  
-   make BLD_DEST="macos-1012-plus" BLD_OPTS="-arch x86_64 -march=x86-64 -mmacosx-version-min=10.12" ship
+   make BLD_DEST="macos-10-12-plus" BLD_OPTS="-arch x86_64 -march=x86-64 -mmacosx-version-min=10.12" ship
    ```  
    
    Debug build:  
