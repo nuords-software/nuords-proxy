@@ -1,20 +1,30 @@
 **HOW TO INSTALL NUORDS PROXY**  [(?)](README.md)  
   
-**macOS Installation:**  
+**macOS | Installation:**  
   
-1. Unpack NuoRDS Proxy package into a directory.  
+1. Mount NuoRDS Proxy DMG package.
+   
+   ``` 
+   hdiutil attach PATH_TO_NUORDS_PROXY_DMG
+   ``` 
+
+2. Open Terminal and navigate into a mounted volume:  
   
-2. Open Terminal app and run setup script:  
+   ```
+   cd "/Volumes/NuoRDS Proxy"  
+   ```
+  
+3. Run the installer script:  
   
    ```
    sudo sh nrdproxy_install  
    ```
   
-3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample". 
+4. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample". 
   
    Learn more about [NuoRDS Proxy configuration.](CONFIG.md) 
   
-4. Test your configuration with verbose output:  
+5. Test your configuration with verbose output:  
   
    ```
    /usr/local/bin/nrdproxyd -lc -lv -cf nrdproxyd.cfg  
@@ -32,11 +42,31 @@
    sudo nrdproxy_service start -w
    ```  
   
-7. Check log messages in /var/log/nrdproxyd.log  
+7. Check log messages in /var/log/nrdproxyd.log
   
-**macOS Troubleshooting:**  
+**macOS | Uninstallation:**
   
-1. Stop NuoRDS Proxy daemon daemon:  
+1. Mount NuoRDS Proxy DMG package.
+   
+   ``` 
+   hdiutil attach PATH_TO_NUORDS_PROXY_DMG
+   ``` 
+
+2. Open Terminal and navigate into a mounted volume:  
+  
+   ```
+   cd "/Volumes/NuoRDS Proxy"  
+   ```
+  
+3. Run the uninstaller script:  
+  
+   ```
+   sudo sh nrdproxy_uninstall  
+   ```
+   
+**macOS | Troubleshooting:**  
+  
+1. Stop NuoRDS Proxy daemon:  
   
    ```
    sudo nrdproxy_service stop -w
@@ -66,7 +96,7 @@
    sudo nrdproxy_service start -w
    ```  
   
-**Other OS Installation:**  
+**Other OS | Installation:**  
   
 *IMPORTANT*: Unfortunately we do not have installer scripts for other operating systems.  
   

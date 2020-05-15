@@ -21,7 +21,7 @@ include ../unix/common.mak
 SUB_PATH:=$(BLD_DEST)/$(BLD_CONF)
 SHIP_DIR:=../ship/$(SUB_PATH)
 PACK_DIR:=../pack/$(SUB_PATH)
-PACK_ZIP:=$(PACK_DIR)/$(PROD_NAME)-$(BLD_DEST)-$(BLD_DATE).zip
+PACK_NAM:=$(PROD_NAME)-$(BLD_DEST)-$(BLD_DATE)
 
 ship: proxy
 	-@echo "Shipping..."
@@ -45,9 +45,8 @@ ship: proxy
 pack:
 	-@echo "Packing..."
 	-@xattr -cr "$(SHIP_DIR)" 
-	-@if [ -f "$(PACK_ZIP)" ] ; then rm -f "$(PACK_ZIP)" ; fi
 	-@if [ ! -d "$(PACK_DIR)" ] ; then $(MKDIR_CMD) "$(PACK_DIR)" ; fi 
-	-@PWD=`pwd`; cd "$(SHIP_DIR)/" ; zip "$(PWD)/$(PACK_ZIP)" *
-	-@if [ -f "$(PACK_ZIP)" ] ; then echo "Pack zip: "$(PACK_ZIP) ; fi
+	-@chmod +x ./packdmg 
+	-@./packdmg "$(SHIP_DIR)" "$(PACK_DIR)" "$(PACK_NAM)"
 	
 .PHONY: ship pack
