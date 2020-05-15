@@ -2,7 +2,7 @@
   
 **macOS | Installation:**  
   
-1. Mount NuoRDS Proxy DMG package.
+1. Mount NuoRDS Proxy DMG file.
    
    ``` 
    hdiutil attach PATH_TO_NUORDS_PROXY_DMG
@@ -46,7 +46,7 @@
   
 **macOS | Uninstallation:**
   
-1. Mount NuoRDS Proxy DMG package.
+1. Mount NuoRDS Proxy DMG file.
    
    ``` 
    hdiutil attach PATH_TO_NUORDS_PROXY_DMG
