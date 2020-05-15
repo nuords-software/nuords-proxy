@@ -46,7 +46,7 @@ nrdpx_section_t::~nrdpx_section_t()
 {
 }
 
-const xtl::string& nrdpx_section_t::get_name()
+xtl::string nrdpx_section_t::get_name()
 {
     return m_name;
 }
@@ -85,8 +85,8 @@ const xtl::strings& nrdpx_section_t::get_strings(const xtl::string& sKey)
     return i->second.vls;
 }
 
-const xtl::string& nrdpx_section_t::get_string(
-const xtl::string& sKey, const xtl::string& sDef/*=xtl::snull*/)
+xtl::string nrdpx_section_t::get_string(const xtl::string& sKey, 
+                             const xtl::string& sDef/*=xtl::snull*/)
 {
     items_t::iterator i=m_items.find(sKey);
     if(i == m_items.end()) return sDef;
@@ -95,13 +95,13 @@ const xtl::string& sKey, const xtl::string& sDef/*=xtl::snull*/)
 
 int  nrdpx_section_t::get_integer(const xtl::string& sKey, int iDef/*=0*/)
 {
-    const xtl::string& s = get_string(sKey);
+    xtl::string s = get_string(sKey);
     return s.empty() ? iDef : xtl::stoi(s);
 }
 
 bool   nrdpx_section_t::get_boolean(const xtl::string& sKey, bool bDef/*=false*/)
 {
-    const xtl::string& s =get_string(sKey);
+    xtl::string s = get_string(sKey);
     return s.empty() ? bDef : (!stricmp(s.c_str(),"true") ||
     !stricmp(s.c_str(),"yes") || !stricmp(s.c_str(),"1"));
 }

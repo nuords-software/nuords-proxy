@@ -10,8 +10,7 @@
 
 #BLD_DEST:=x86-64
 #BLD_OPTS:=-march=$(BLD_DEST)
-
-CPP_OPTS:=-mmacosx-version-min=10.13
+#CPP_OPTS:=-mmacosx-version-min=10.12
 
 ifeq ($(OS_NAME),)
 	OS_NAME:=mac

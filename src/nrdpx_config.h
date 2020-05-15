@@ -51,10 +51,11 @@ class nrdpx_section_t
     
     public:
     
-    const xtl::string&  get_name();
+    xtl::string get_name();
     	
     const xtl::strings& get_strings(const xtl::string& sKey);
-    const xtl::string&  get_string(const xtl::string& sKey, 
+
+    xtl::string get_string(const xtl::string& sKey, 
     	                  const xtl::string& sDef=xtl::snull);
     int   get_integer(const xtl::string& sKey, int iDef=0);
     bool  get_boolean(const xtl::string& sKey, bool bDef=false);

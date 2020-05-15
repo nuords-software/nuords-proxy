@@ -14,8 +14,8 @@
   
 4. If you want to pack the shipment:  
   
-   make pack  
-  
+   make ship pack  
+
 5. Additional build variables.  
   
    - BLD_DEST - An output folder name.  
@@ -42,7 +42,7 @@
   
 4. If you want to pack the shipment:  
   
-   make pack  
+   make ship pack  
   
 5. Additional build variables.  
   
@@ -70,7 +70,7 @@
   
 4. If you want to pack the shipment:  
   
-   make pack  
+   make ship pack  
   
 5. Additional build variables.  
   
