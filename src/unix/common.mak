@@ -8,7 +8,7 @@
 
 #BUILD OPTIONS
 
-#Architecture name
+#Build destination
 ifeq ($(BLD_DEST),)
 	BLD_DEST:=default
 endif
@@ -28,25 +28,9 @@ ifeq ($(BLD_CONF),)
 	BLD_CONF:=release
 endif
 
-#System name
-ifeq ($(OS_NAME),)
-	OS_NAME:=other
-endif
-
 ifeq ($(LNK_LIBS),)
-  LNK_LIBS:=-lpthread
+	LNK_LIBS:=-lpthread
 endif  
-
-#Target system version
-ifeq ($(OS_VER),)
-  DUMMY:=$(shell perl -p -e 's/\r\n/\n/' ../conf/config.guess > ../conf/config.guess.tmp)
-	OS_VER:=$(shell echo `sh ../conf/config.guess.tmp`)
-	DUMMY:=$(shell rm -f ../conf/config.guess.tmp)
-endif
-
-ifeq ($(OS_VER),)
-	OS_VER:=unknown
-endif
 
 BLD_DATE=$(shell date "+%Y%m%d")
 
@@ -77,8 +61,8 @@ BLD_DIR=../bld
 XTL_DIR=../com/xtllib
 INC_DIR=../com/include
 
-OBJ_DIR=$(BLD_DIR)/$(OS_NAME)/$(OS_VER)/$(BLD_DEST)/$(BLD_CONF)/obj
-BIN_DIR=$(BLD_DIR)/$(OS_NAME)/$(OS_VER)/$(BLD_DEST)/$(BLD_CONF)/bin
+OBJ_DIR=$(BLD_DIR)/$(BLD_DEST)/$(BLD_CONF)/obj
+BIN_DIR=$(BLD_DIR)/$(BLD_DEST)/$(BLD_CONF)/bin
 BIN_OUT=$(BIN_DIR)/$(BIN_NAME)
 
 #Linker objects and includes

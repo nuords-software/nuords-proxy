@@ -8,12 +8,8 @@
 
 #Config
 
-#BLD_DEST:=x86-64
-#BLD_OPTS:=-march=$(BLD_DEST)
-#CPP_OPTS:=-mmacosx-version-min=10.12
-
-ifeq ($(OS_NAME),)
-	OS_NAME:=mac
+ifeq ($(BLD_DEST),)
+	BLD_DEST:=mac
 endif
 
 #Libraries
@@ -22,10 +18,10 @@ LNK_LIBS:=-lpthread
 
 include ../unix/common.mak
 
-SUB_PATH:=$(OS_NAME)/$(OS_VER)/$(BLD_DEST)/$(BLD_CONF)
+SUB_PATH:=$(BLD_DEST)/$(BLD_CONF)
 SHIP_DIR:=../ship/$(SUB_PATH)
 PACK_DIR:=../pack/$(SUB_PATH)
-PACK_ZIP:=$(PACK_DIR)/$(PROD_NAME)-$(OS_VER)-$(BLD_DEST)-$(BLD_DATE).zip
+PACK_ZIP:=$(PACK_DIR)/$(PROD_NAME)-$(BLD_DEST)-$(BLD_DATE).zip
 
 ship: proxy
 	-@echo "Shipping..."

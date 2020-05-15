@@ -18,9 +18,9 @@
 
 4. Advanced build configuration variables:  
   
-   - BLD_DEST - An output folder name.  
+   - BLD_DEST - An output folder and a package name.  
    - BLD_OPTS - Additional compiler options.  
-   - BLD_CONF - The build config (debug/release).  
+   - BLD_CONF - Build config type (debug/release).  
   
    Backward compatibility (macOS 10.12+):  
    
@@ -60,9 +60,9 @@
   
 4. Advanced build configuration variables:  
   
-   - BLD_DEST - An output folder name.  
+   - BLD_DEST - An output folder and a package name.  
    - BLD_OPTS - Additional compiler options.  
-   - BLD_CONF - The build config (debug/release).  
+   - BLD_CONF - Build config type (debug/release).  
   
    x86-64 Architecture:  
   
@@ -101,9 +101,9 @@
   
 5. Advanced build configuration variables:  
   
-   - BLD_DEST - An output folder name.  
+   - BLD_DEST - Shipping folder and package name.  
    - BLD_OPTS - Additional compiler options.  
-   - BLD_CONF - The build config (debug/release).  
+   - BLD_CONF - Build config type (debug/release).  
   
    x86-64 Architecture:  
   
