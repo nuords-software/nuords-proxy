@@ -4,23 +4,23 @@ If you want to deploy NuoRDS Proxy on several macOS hosts, you may need to sign 
 
 1. Make the product shipment without packing it: 
   
-   ```
+   ```  
    make ship  
-   ```
+   ```  
   
    See more build options [here](BUILD.md).  
   
 2. Sign the 'nrdproxyd' binary with your Develeoper ID Certificate:  
   
-   ```
+   ```  
    codesign --all-architectures --verbose --force --options runtime --identifier APPLICATION_ID --sign "CERTIFICATE_ID" PATH_TO_NRDPROXYD
-   ```
+   ```  
   
 3. Pack the product shipment:
   
-   ```
+   ```  
    make pack
-   ```
+   ```  
   
 4. Submit produced ZIP package to Apple for notarization.
   
@@ -32,9 +32,9 @@ If you want to deploy NuoRDS Proxy on several macOS hosts, you may need to sign 
 
 6. Re-Pack the product shipment with notarized binary:
 
-   ```
+   ```  
    make pack
-   ```
+   ```  
    
 ------------------------------  
 [< NuoRDS Proxy](README.md) 

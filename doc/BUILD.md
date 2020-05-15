@@ -6,23 +6,17 @@
   
 2. Navigate into the "src/mac" directory.  
   
-   ```
+   ```  
    cd src/mac  
    ```  
   
 3. Make the product and create a shipment: 
   
-   ```
+   ```  
    make ship  
    ```  
-  
-4. If you want to pack the shipment:  
-  
-   ```
-   make ship pack  
-   ```
-   
-5. Additional build variables.  
+
+4. Advanced build configuration variables:  
   
    - BLD_DEST - An output folder name.  
    - BLD_OPTS - Advanced build options.  
@@ -30,15 +24,22 @@
   
    Backward compatibility (macOS 10.12+):  
    
-   ```
+   ```  
    make BLD_DEST="macos-1012-plus" BLD_OPTS="-arch x86_64 -march=x86-64 -mmacosx-version-min=10.12" ship
-   ```
+   ```  
    
    Debug build:  
    
-   ```
+   ```  
    make BLD_CONF="debug" ship
    ```  
+
+5. If you want to pack the shipment:  
+  
+   ```  
+   make pack  
+   ```  
+
   
 **Linux:**  
   
@@ -46,23 +47,17 @@
   
 2. Navigate into the "src/linux" directory.  
   
-   ```
+   ```  
    cd src/linux
    ```  
   
 3. Make the product and create a shipment: 
   
-   ```
+   ```  
    make ship
-   ```
-  
-4. If you want to pack the shipment:  
-  
-   ```
-   make ship pack
    ```  
   
-5. Additional build variables.  
+4. Advanced build configuration variables:  
   
    - BLD_DEST - An output folder name.  
    - BLD_OPTS - Advanced build options.  
@@ -70,14 +65,20 @@
   
    x86-64 Architecture:  
   
-   ```
+   ```  
    make BLD_DEST="x86-64" BLD_OPTS="-march=x86-64" ship  
-   ```
+   ```  
   
    Debug build:  
-   ```
+   ```  
    make BLD_CONF="debug" ship  
-   ```
+   ```  
+    
+5. If you want to pack the shipment:  
+  
+   ```  
+   make pack
+   ```  
   
 **Unix:**  
   
@@ -85,23 +86,17 @@
   
 2. Navigate into the "src/unix" directory.  
   
-   ```
+   ```  
    cd src/unix
    ```  
   
 3. Make the product and create a shipment: 
   
-   ```
+   ```  
    make ship  
-   ```
-  
-4. If you want to pack the shipment:  
-  
-   ```
-   make ship pack
    ```  
   
-5. Additional build variables.  
+5. Advanced build configuration variables:  
   
    - BLD_DEST - An output folder name.  
    - BLD_OPTS - Advanced build options.  
@@ -109,15 +104,21 @@
   
    x86-64 Architecture:  
   
-   ```
+   ```  
    make BLD_DEST="x86-64" BLD_OPTS="-march=x86-64" ship  
-   ```
+   ```  
   
    Debug build:  
   
-   ```
+   ```  
    make BLD_CONF="debug" ship  
-   ```
+   ```  
+  
+4. If you want to pack the shipment:  
+  
+   ```  
+   make pack
+   ```  
   
 **Windows:**  
   
@@ -135,11 +136,11 @@
   
 2. Check the daemon executable functionality:  
   
-   ```
+   ```  
    chmod +x ./nrdproxyd  
   
    ./nrdproxyd -h  
-   ```
+   ```  
   
 3. Create nrdproxyd.cfg using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
   
@@ -147,9 +148,9 @@
   
 5. Launch proxy in a verbose console mode:  
   
-   ```
+   ```  
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg  
-   ```
+   ```  
   
 ------------------------------  
 [< NuoRDS Proxy](README.md)  
