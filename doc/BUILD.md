@@ -15,12 +15,18 @@
    ```  
    make ship  
    ```  
-
-4. Advanced build configuration variables:  
   
-   - BLD_DEST - An output folder and a package name.  
+4. If you want to pack the shipment:  
+  
+   ```  
+   make pack  
+   ```  
+  
+5. Custom build configuration and options:  
+  
+   - BLD_DEST - Ship folder and pack name.  
    - BLD_OPTS - Additional compiler options.  
-   - BLD_CONF - Build config type (debug/release).  
+   - BLD_CONF - Build config (debug/release).  
   
    Backward compatibility (macOS 10.12+):  
    
@@ -32,15 +38,9 @@
    
    ```  
    make BLD_CONF="debug" ship
-   ```  
-
-5. If you want to pack the shipment:  
-  
-   ```  
-   make pack  
-   ```  
+   ``` 
    
-   With advanced build, use the same BLD_DEST for shipping and packing.
+   The same BLD_CONF and BLD_DEST should be specified for shipping and packing.  
   
 **Linux:**  
   
@@ -58,11 +58,17 @@
    make ship
    ```  
   
-4. Advanced build configuration variables:  
+4. If you want to pack the shipment:  
   
-   - BLD_DEST - An output folder and a package name.  
+   ```  
+   make pack
+   ```  
+  
+5. Custom build configuration and options:  
+  
+   - BLD_DEST - Ship folder and pack name.  
    - BLD_OPTS - Additional compiler options.  
-   - BLD_CONF - Build config type (debug/release).  
+   - BLD_CONF - Build config (debug/release).  
   
    x86-64 Architecture:  
   
@@ -74,14 +80,8 @@
    ```  
    make BLD_CONF="debug" ship  
    ```  
-    
-5. If you want to pack the shipment:  
   
-   ```  
-   make pack
-   ```  
-   
-   With advanced build, use the same BLD_DEST for shipping and packing.  
+   The same BLD_CONF and BLD_DEST should be specified for shipping and packing.  
   
 **Unix:**  
   
@@ -99,11 +99,17 @@
    make ship  
    ```  
   
-5. Advanced build configuration variables:  
+4. If you want to pack the shipment:  
+  
+   ```  
+   make pack
+   ```  
+  
+5. Custom build configuration and options:  
   
    - BLD_DEST - Shipping folder and package name.  
    - BLD_OPTS - Additional compiler options.  
-   - BLD_CONF - Build config type (debug/release).  
+   - BLD_CONF - Build config (debug/release).  
   
    x86-64 Architecture:  
   
@@ -116,14 +122,8 @@
    ```  
    make BLD_CONF="debug" ship  
    ```  
-  
-4. If you want to pack the shipment:  
-  
-   ```  
-   make pack
-   ```  
    
-   With advanced build, use the same BLD_DEST for shipping and packing.  
+   The same BLD_CONF and BLD_DEST should be specified for shipping and packing.  
   
 **Windows:**  
   
