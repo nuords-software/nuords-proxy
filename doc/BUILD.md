@@ -39,7 +39,8 @@
    ```  
    make pack  
    ```  
-
+   
+   With advanced build, use the same BLD_DEST for shipping and packing.
   
 **Linux:**  
   
@@ -79,6 +80,8 @@
    ```  
    make pack
    ```  
+   
+   With advanced build, use the same BLD_DEST for shipping and packing.  
   
 **Unix:**  
   
@@ -119,6 +122,8 @@
    ```  
    make pack
    ```  
+   
+   With advanced build, use the same BLD_DEST for shipping and packing.  
   
 **Windows:**  
   
@@ -142,7 +147,7 @@
    ./nrdproxyd -h  
    ```  
   
-3. Create nrdproxyd.cfg using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
+3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
   
 4. Adjust system firewall if necessary (default port: 3389(TCP)).  
   
