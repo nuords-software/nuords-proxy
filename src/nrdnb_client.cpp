@@ -228,7 +228,7 @@ bool   nrdnb_client_t::create_sock()
         xtl::inet::set_addr_any(family, &addr);
     }
     
-    xtl::inet::set_addr_port(&addr, m_port);
+    xtl::inet::set_addr_port(&addr, m_port); //local binding port
     
     m_sock = ::socket(addr.sa_family, SOCK_DGRAM, 0);
     
@@ -286,7 +286,7 @@ bool nrdnb_client_t::send_getinfo(const xtl::string& host,NRD_UINT port/*=0*/,in
         return false;
     }
     
-    xtl::inet::set_addr_port(&addr,m_port);
+    xtl::inet::set_addr_port(&addr,port); //remote info port
     
     HNRD_NBMSG msg;
     memcpy(msg.sig,NRD_NBSIG,sizeof(msg.sig));

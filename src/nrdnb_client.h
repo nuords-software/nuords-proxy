@@ -99,43 +99,43 @@ typedef NRD_BOOL(*nrdnb_callback_t)(NRD_UINT uEvent,NRD_VOID* pData,NRD_VOID* pP
 
 class nrdnb_client_t:public xtl::thread
 {
-	
+    
     private:
-        
+    
     typedef struct _callback_t
     {
-         nrdnb_callback_t cbc;
-         NRD_VOID*           par;
-    }callback_t;    
+        nrdnb_callback_t cbc;
+        NRD_VOID*           par;
+    }callback_t;
     
     typedef xtl::vector<callback_t> callbacks_t;
-
+    
     class control_t:public xtl::thread
-    {      
-      friend class nrdnb_client_t;
-      private:
-      nrdnb_client_t *owner;
-      NRD_UINT   period;
-      protected:
-      void main();
-      control_t();
-      ~control_t();
-      public: 
+    {
+        friend class nrdnb_client_t;
+        private:
+        nrdnb_client_t *owner;
+        NRD_UINT   period;
+        protected:
+        void main();
+        control_t();
+        ~control_t();
+        public:
     };
- 
+    
     static nrdnb_client_t m_inst;
     nrdnb_items_t         m_svrs;
     xtl::mutex            m_smtx;
     xtl::mutex            m_cmtx;
     callbacks_t           m_cbcs;
     control_t             m_ctrl;
-    NRD_UINT              m_tout;  
-    NRD_UINT              m_tref; 
-    NRD_UINT              m_port; 
+    NRD_UINT              m_tout;
+    NRD_UINT              m_tref;
+    NRD_UINT              m_port;
     xtl::string           m_host;
     NRD_BOOL              m_refr;
     OS_SOCKET             m_sock;
-
+    
     bool      create_sock();
     void      close_sock();
     bool      raise_event(NRD_UINT event, void * data);
@@ -145,7 +145,7 @@ class nrdnb_client_t:public xtl::thread
     bool      recv_msg(HNRD_NBMSG* pmsg,struct sockaddr * from,socklen_t* fromlen);
     void      refresh_svrs(bool lostw=false);
     void      check_svrs();
-
+    
     protected:
     
     void main();
@@ -154,7 +154,7 @@ class nrdnb_client_t:public xtl::thread
     ~nrdnb_client_t();
     
     public:
-
+    
     static NRD_BOOL        register_callback(nrdnb_callback_t pCbc, NRD_VOID* pPar);
     static NRD_BOOL        unregister_callback(nrdnb_callback_t pCbc, NRD_VOID* pPar);
     
@@ -174,10 +174,11 @@ class nrdnb_client_t:public xtl::thread
     
     static NRD_VOID        set_reconnect_time(NRD_UINT uTime/*seconds*/);
     static NRD_UINT        get_reconnect_time();
-   
+    
     static NRD_VOID        set_refresh_time(NRD_UINT uTime/*seconds*/);
     static NRD_UINT        get_refresh_time();
-       
+    
 };
+
 
 #endif

@@ -1688,7 +1688,7 @@ NRD_BOOL nrdpx_info_callback(NRD_UINT uEvent,NRD_VOID* pData,NRD_VOID* pParam)
                 
                 //WORKAROUND: Process only v3+ info here. See also nrdnb.h.
                 if(item->info.svc.pver != NRD_MAKEUINT(0,5)){
-                    nrdpx_log(LOG_ERR,"Tracker: Protocol is not compatible, server=%s",(*s)->name.c_str());
+                    nrdpx_log(LOG_ERR,"Tracker: Info protocol is not compatible, server=%s",(*s)->name.c_str());
                     (*s)->check_mode = NRDPX_CHECK_MODE_CONN; //Degrade mode.
                     continue;
                 }
