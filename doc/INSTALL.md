@@ -100,19 +100,25 @@
   
 *IMPORTANT*: Unfortunately we do not have installer scripts for other operating systems.  
   
-1. Unpack NuoRDS Proxy package into a directory.  
+1. Unpack NuoRDS Proxy ZIP package into a directory.  
+
+2. Set executable permission to "nrdproxyd":   
   
-4. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
+   ```
+   chmod +x ./nrdproxyd  
+   ```
+  
+3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
    
    Learn more about [NuoRDS Proxy configuration.](CONFIG.md)
    
-5. Test your configuration with verbose output:  
+4. Test your configuration with verbose output:  
   
    ```
    ./nrdproxyd -lc -lv -cf nrdproxyd.cfg  
    ```
-  
-6. Create the daemon/service config to launch "nrdproxyd" properly at system startup.  
+   
+5. Create the daemon/service config to launch "nrdproxyd" properly at system startup.  
   
 See "nrdproxyd -h" for all options you can use to meet your system requirements.  
   

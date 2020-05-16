@@ -139,12 +139,10 @@
   
 1. Navigate into a shipping directory.  
   
-2. Check the daemon executable functionality:  
+2. Set executable permission to "nrdproxyd":  
   
    ```  
    chmod +x ./nrdproxyd  
-  
-   ./nrdproxyd -h  
    ```  
   
 3. Create "nrdproxyd.cfg" using "nrdproxyd.cfg.simple" or "nrdproxyd.cfg.sample".  
