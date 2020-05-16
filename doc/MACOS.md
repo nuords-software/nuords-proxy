@@ -25,7 +25,7 @@ If you want to deploy NuoRDS Proxy on several macOS hosts, you may need to sign 
 4. Sign the produced DMG file with your Develeoper ID Certificate:  
   
    ```  
-   codesign --all-architectures --verbose --force --options runtime --identifier APPLICATION_ID --sign "CERTIFICATE_ID" PATH_TO_DMG_FILE  
+   codesign --verbose --force --sign "CERTIFICATE_ID" PATH_TO_DMG_FILE  
    ``` 
     
 5. If you want to notarize DMG file, then submit it to Apple:  
