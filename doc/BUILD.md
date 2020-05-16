@@ -139,7 +139,7 @@
   
 1. Navigate into a shipping directory.  
   
-2. Set executable permission to "nrdproxyd":  
+2. Set executable permissions to "nrdproxyd":  
   
    ```  
    chmod +x ./nrdproxyd  

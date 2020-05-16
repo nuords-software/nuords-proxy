@@ -102,7 +102,7 @@
   
 1. Unpack NuoRDS Proxy ZIP package into a directory.  
 
-2. Set executable permission to "nrdproxyd":   
+2. Set executable permissions to "nrdproxyd":   
   
    ```
    chmod +x ./nrdproxyd  
