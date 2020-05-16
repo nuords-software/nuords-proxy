@@ -1,0 +1,61 @@
+#!/bin/sh
+##
+# Packs shipment into DMG 
+##
+
+if [ ! -d "$1" ] ; then
+     echo "error: Ship directory does not exist."
+     exit 1
+fi
+
+if [ ! -d "$2" ] ; then
+     echo "error: Pack directory does not exist."
+     exit 1
+fi
+
+if [ "$3" = "" ] ; then
+     echo "error: Package name is not valid."
+     exit 1
+fi
+
+SHIP_DIR="$1"
+PACK_DIR="$2"
+PACK_DMG="$3"
+PACK_VOL="NuoRDS Proxy"
+
+echo "Ship dir: $SHIP_DIR"
+
+TEMP_DIR=`mktemp -d -t nrdproxy` || exit 1
+
+echo "Temp dir: $TEMP_DIR"
+
+#Remove previous files and DS_Store
+rm -f  "$PACK_DIR/$PACK_DMG"  > /dev/null 2>&1
+rm -f  "$TEMP_DIR/$PACK_DMG"  > /dev/null 2>&1
+rm -rf "$SHIP_DIR/.DS_Store" > /dev/null 2>&1
+
+#The only format suitable for notarization is UDZO
+hdiutil create -volname "$PACK_VOL" -format UDZO -imagekey zlib-level=9 -srcfolder "$SHIP_DIR/" "$TEMP_DIR/$PACK_DMG"
+
+RESULT=$?
+
+if [ $RESULT -ne 0 ] ; then 
+   echo "error: Could not create temp package."
+   exit $RESULT; 
+fi
+
+cp "$TEMP_DIR/$PACK_DMG" "$PACK_DIR/"
+
+RESULT=$?
+
+#Remove temp directory 
+rm -rf "$TEMP_DIR" > /dev/null 2>&1
+
+if [ $RESULT -ne 0 ] ; then 
+   echo "error: Could not copy final package"
+   exit $RESULT
+fi
+
+echo "Pack dmg: $PACK_DIR/$PACK_DMG"
+
+exit $RESULT
