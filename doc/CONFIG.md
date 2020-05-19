@@ -181,9 +181,6 @@ A client group properties should be placed in a **\[client.NAME\]** section. Add
   
   Set '0' to prevent connections from this group.  
   
-  A [balancer.NAME] section describes a balancing module,  
-  that is distributing client connections among servers.  
-  
 **A balancing unit.**  
   
 A balancing unit properties should be placed in a **\[balancer.NAME\]** section. Add a new section with a unique NAME extension for each balancing unit.  
