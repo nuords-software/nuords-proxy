@@ -12,8 +12,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\bld\win\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\bld\win\obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="..\build\win\bin\$(ConfigurationName)"
+			IntermediateDirectory="..\build\win\obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
@@ -64,8 +64,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\bld\win\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\bld\win\obj\$(ConfigurationName)\$(ProjectName)"
+			OutputDirectory="..\build\win\bin\$(ConfigurationName)"
+			IntermediateDirectory="..\build\win\obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool

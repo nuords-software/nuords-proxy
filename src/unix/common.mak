@@ -57,7 +57,7 @@ ifeq ($(MKDIR_CMD),)
 endif
 
 #Paths
-BLD_DIR=../bld
+BLD_DIR=../build
 XTL_DIR=../com/xtllib
 INC_DIR=../com/include
 
