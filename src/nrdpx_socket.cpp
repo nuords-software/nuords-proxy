@@ -211,9 +211,7 @@ NRD_SOCKET nrdpx_socket_listen(xtl::string& host,int port)
     }
     
     nrdpx_log(LOG_INFO,"Listener has been created, address=%s:%d, sock=%d", host.c_str(),port,sock);
-    
-    //nrdpx_socket_adjust_buffers(sock);
-  
+
     return sock;
 }
 
@@ -234,7 +232,7 @@ static int nrdpx_socket_calc_buffer_size(int mss,int bss,int limit)
     return ret;
 }
 
-bool        nrdpx_socket_adjust_buffers(NRD_SOCKET sock,bool align, int limit)
+bool nrdpx_socket_adjust_buffers(NRD_SOCKET sock,bool align, int limit)
 {
     if(sock == NRD_NOSOCK) return false;
     
